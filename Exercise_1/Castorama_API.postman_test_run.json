@@ -1,0 +1,746 @@
+{
+	"id": "c57ae0d1-34e8-48aa-a4b6-1774a627e238",
+	"name": "Castorama_API",
+	"timestamp": "2022-06-28T12:32:05.834Z",
+	"collection_id": "17469563-4eaa9d49-eeba-4bea-ac24-311c58052bca",
+	"folder_id": 0,
+	"environment_id": "17469563-366bd8b3-793b-488e-9b08-ae822ec52649",
+	"totalPass": 38,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "ee68173a-b860-4de1-af4a-dbff7220adf2",
+			"name": "getToHomePage",
+			"url": "https://www.castorama.pl/",
+			"time": 98,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				98
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true
+				}
+			]
+		},
+		{
+			"id": "55d5014c-d5bd-436b-a44f-41a76726f4f8",
+			"name": "searchProduct",
+			"url": "https://www.castorama.pl/result/?q=kf320",
+			"time": 88,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				88
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true
+				}
+			]
+		},
+		{
+			"id": "459a5c60-91c5-4ef6-9300-8780a5e64391",
+			"name": "getProductDetails",
+			"url": "https://se.searchnode.net/v1/query/docs?query_key=A9fdhvIfC5aRN1mEsHXiAmPt4F0AQPTg&stats.0=f_price_default&search_query=kf320&sort=-score&limit=47&offset=0&facet_filters.s_type=product&boost.i_exist_default.false=-12&boost.i_exist_default.true=3&strict=true&custom.ranking_rules.query_custom_match_field.store=default",
+			"time": 29,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Product Retrieved": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Product Retrieved": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				29
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Product Retrieved": true
+				}
+			]
+		},
+		{
+			"id": "1deb1349-7854-4c0e-9f63-609eb44fca03",
+			"name": "displayProduct",
+			"url": "https://www.castorama.pl/rekawice-nitrylowe-kf320-site-czerwone-m-id-1099318.html",
+			"time": 53,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Product Id (sku) retrieved": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Product Id (sku) retrieved": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				53
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Product Id (sku) retrieved": true
+				}
+			]
+		},
+		{
+			"id": "3e892566-df2f-4e3d-87b8-234dfd6c938e",
+			"name": "createEmptyCart",
+			"url": "https://www.castorama.pl/graphql",
+			"time": 212,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Cart ID generated": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Cart ID generated": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				212
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Cart ID generated": true
+				}
+			]
+		},
+		{
+			"id": "889434a9-439d-45c6-8ff5-0d66466e5746",
+			"name": "addProductToCart",
+			"url": "https://www.castorama.pl/graphql",
+			"time": 2240,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Product Added": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Product Added": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				2240
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Product Added": true
+				}
+			]
+		},
+		{
+			"id": "a4b9576e-395a-4bdb-a02f-ec55762997b8",
+			"name": "getMarkets",
+			"url": "https://www.castorama.pl/api/rest/headless/public/markets",
+			"time": 33,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Shops Available": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shops Available": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				33
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Shops Available": true
+				}
+			]
+		},
+		{
+			"id": "eb2d1e59-078a-4bdc-b845-ac8657db479b",
+			"name": "getProductStatusStore",
+			"url": "https://www.castorama.pl/bold_all/data/getProductPriceStockByStore/?isAjax=true&store=8016&typeBlock=recommended&needData=1099318",
+			"time": 59,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Product can be send": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Product can be send": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				59
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Product can be send": true
+				}
+			]
+		},
+		{
+			"id": "0a6ee0c0-020c-4444-9dbf-7f605db32794",
+			"name": "getStoreDetails",
+			"url": "https://www.castorama.pl/api/rest/headless/public/market?storeId=8016",
+			"time": 62,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Shop Detailes Retrieved": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shop Detailes Retrieved": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				62
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Shop Detailes Retrieved": true
+				}
+			]
+		},
+		{
+			"id": "c8871aa7-3cd3-45f5-8da8-1cac74df20bf",
+			"name": "fetchCart",
+			"url": "https://www.castorama.pl/graphql",
+			"time": 1885,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Cart fetched": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Cart fetched": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1885
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Cart fetched": true
+				}
+			]
+		},
+		{
+			"id": "da0f9b9d-d92d-41c5-b340-e7e476a6c6a3",
+			"name": "fetchCartAvailableStores",
+			"url": "https://www.castorama.pl/graphql",
+			"time": 1545,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Store fetched": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Store fetched": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1545
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Store fetched": true
+				}
+			]
+		},
+		{
+			"id": "cefb1437-3ca8-4317-90f1-498d2cbc2d17",
+			"name": "getCountries",
+			"url": "https://www.castorama.pl/graphql?query=query%20getCountries%20%7B%0A%20%20countries%20%7B%0A%20%20%20%20id%0A%20%20%20%20title%3A%20full_name_locale%0A%20%20%20%20__typename%0A%20%20%7D%0A%7D%0A&operationName=getCountries&variables=%7B%7D",
+			"time": 370,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Countries Available": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Countries Available": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				370
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Countries Available": true
+				}
+			]
+		},
+		{
+			"id": "4a4ee53e-bb61-4c54-a952-3089365cc319",
+			"name": "fetchCartForCheckout",
+			"url": "https://www.castorama.pl/graphql",
+			"time": 1783,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Cart fetched": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Cart fetched": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1783
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Cart fetched": true
+				}
+			]
+		},
+		{
+			"id": "4401e2aa-5e38-47c7-af3f-290d710f40bc",
+			"name": "getCountryPhones",
+			"url": "https://www.castorama.pl/graphql?query=query%20getTelephoneCountries%20%7B%0A%20%20telephoneCountries%20%7B%0A%20%20%20%20id%0A%20%20%20%20code%0A%20%20%20%20title%3A%20label%0A%20%20%20%20__typename%0A%20%20%7D%0A%7D%0A&operationName=getTelephoneCountries&variables=%7B%7D",
+			"time": 150,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Phones Available": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Phones Available": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				150
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Phones Available": true
+				}
+			]
+		},
+		{
+			"id": "0b836232-8ec5-48c3-80c9-65a503115c98",
+			"name": "getZipCodes",
+			"url": "https://www.castorama.pl/graphql?query=query%20getCitiesByZipCode(%24zipCode%3A%20String!)%20%7B%0A%20%20cities(zipCode%3A%20%24zipCode)%20%7B%0A%20%20%20%20items%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%20%20street%0A%20%20%20%20%20%20__typename%0A%20%20%20%20%7D%0A%20%20%20%20__typename%0A%20%20%7D%0A%7D%0A&operationName=getCitiesByZipCode&variables=%7B%22zipCode%22%3A%2246-024%22%7D",
+			"time": 121,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Zip Codes Available": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Zip Codes Available": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				121
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Zip Codes Available": true
+				}
+			]
+		},
+		{
+			"id": "cdde6307-d8bc-4f62-baba-3a8904e7ac9a",
+			"name": "setShippingAddressesOnCart",
+			"url": "https://www.castorama.pl/graphql",
+			"time": 828,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Shipping Address Set": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shipping Address Set": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				828
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Shipping Address Set": true
+				}
+			]
+		},
+		{
+			"id": "314e3122-fa8b-4c1f-b6a9-6d6fc6e28e5c",
+			"name": "setGuestEmailOnCart",
+			"url": "https://www.castorama.pl/graphql",
+			"time": 412,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Guest email Set": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Guest email Set": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				412
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Guest email Set": true
+				}
+			]
+		},
+		{
+			"id": "7b5bc939-b1c6-4b36-9533-716bd2bef55f",
+			"name": "setShippingMethodsOnCart",
+			"url": "https://www.castorama.pl/graphql",
+			"time": 735,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Shipping Method Set": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Shipping Method Set": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				735
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Shipping Method Set": true
+				}
+			]
+		},
+		{
+			"id": "c2d84f16-05b6-4f73-bdb0-6ad5977cb22c",
+			"name": "setPaymentMethod",
+			"url": "https://www.castorama.pl/graphql",
+			"time": 646,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Payment Method Set": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Payment Method Set": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				646
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Payment Method Set": true
+				}
+			]
+		},
+		{
+			"id": "6f33d98c-9d98-4126-b3c2-762dc9aa8107",
+			"name": "setBillingAddressOnCart",
+			"url": "https://www.castorama.pl/graphql",
+			"time": 829,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Success in reasonable time": true,
+				"Billing Address Set": true
+			},
+			"testPassFailCounts": {
+				"Success in reasonable time": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Billing Address Set": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				829
+			],
+			"allTests": [
+				{
+					"Success in reasonable time": true,
+					"Billing Address Set": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 12178,
+	"collection": {
+		"requests": [
+			{
+				"id": "ee68173a-b860-4de1-af4a-dbff7220adf2",
+				"method": "GET"
+			},
+			{
+				"id": "55d5014c-d5bd-436b-a44f-41a76726f4f8",
+				"method": "GET"
+			},
+			{
+				"id": "459a5c60-91c5-4ef6-9300-8780a5e64391",
+				"method": "GET"
+			},
+			{
+				"id": "1deb1349-7854-4c0e-9f63-609eb44fca03",
+				"method": "GET"
+			},
+			{
+				"id": "3e892566-df2f-4e3d-87b8-234dfd6c938e",
+				"method": "POST"
+			},
+			{
+				"id": "889434a9-439d-45c6-8ff5-0d66466e5746",
+				"method": "POST"
+			},
+			{
+				"id": "a4b9576e-395a-4bdb-a02f-ec55762997b8",
+				"method": "GET"
+			},
+			{
+				"id": "eb2d1e59-078a-4bdc-b845-ac8657db479b",
+				"method": "GET"
+			},
+			{
+				"id": "0a6ee0c0-020c-4444-9dbf-7f605db32794",
+				"method": "GET"
+			},
+			{
+				"id": "c8871aa7-3cd3-45f5-8da8-1cac74df20bf",
+				"method": "POST"
+			},
+			{
+				"id": "da0f9b9d-d92d-41c5-b340-e7e476a6c6a3",
+				"method": "POST"
+			},
+			{
+				"id": "cefb1437-3ca8-4317-90f1-498d2cbc2d17",
+				"method": "GET"
+			},
+			{
+				"id": "4a4ee53e-bb61-4c54-a952-3089365cc319",
+				"method": "POST"
+			},
+			{
+				"id": "4401e2aa-5e38-47c7-af3f-290d710f40bc",
+				"method": "GET"
+			},
+			{
+				"id": "0b836232-8ec5-48c3-80c9-65a503115c98",
+				"method": "GET"
+			},
+			{
+				"id": "cdde6307-d8bc-4f62-baba-3a8904e7ac9a",
+				"method": "POST"
+			},
+			{
+				"id": "314e3122-fa8b-4c1f-b6a9-6d6fc6e28e5c",
+				"method": "POST"
+			},
+			{
+				"id": "7b5bc939-b1c6-4b36-9533-716bd2bef55f",
+				"method": "POST"
+			},
+			{
+				"id": "c2d84f16-05b6-4f73-bdb0-6ad5977cb22c",
+				"method": "POST"
+			},
+			{
+				"id": "6f33d98c-9d98-4126-b3c2-762dc9aa8107",
+				"method": "POST"
+			}
+		]
+	}
+}
