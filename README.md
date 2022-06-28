@@ -48,8 +48,8 @@ newman run https://api.getpostman.com/collections/{{collection_uid}}?apikey={{po
 Every 5 minutes / per country region
 
 
-## Zadanie 2
-1. Analiza funckjonalna witryny [https://coggle.it/diagram/YrYu8LndxQl8MoIF/t/semilac-pl]
-2. Analiza przejść funckjonalnych i priorytetyzacja https://docs.google.com/spreadsheets/d/1YTQLFPOZr83975LFVXIoEw5UtAZLwy5arq4D67wmeYM/edit#gid=0
-## Zadanie 3
-## Zadanie 4
+## Exercise 2
+1. Functional Analysis of the page [https://coggle.it/diagram/YrYu8LndxQl8MoIF/t/semilac-pl]
+2. Functional Flows of the page and prioritisation [https://docs.google.com/spreadsheets/d/1YTQLFPOZr83975LFVXIoEw5UtAZLwy5arq4D67wmeYM/edit#gid=0]
+## Exercise 3
+## Exercise 4
