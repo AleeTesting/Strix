@@ -7,10 +7,10 @@
 	},
 	"item": [
 		{
-			"name": "Main Page Copy",
+			"name": "Home Page",
 			"item": [
 				{
-					"name": "Home Page",
+					"name": "getToHomePage",
 					"event": [
 						{
 							"listen": "test",
@@ -29,19 +29,21 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://www.castorama.pl",
-							"protocol": "https",
+							"raw": "{{environment_url}}",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							]
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Product Search",
+			"item": [
 				{
-					"name": "Search for Product",
+					"name": "searchProduct",
 					"event": [
 						{
 							"listen": "test",
@@ -89,12 +91,9 @@
 							}
 						],
 						"url": {
-							"raw": "https://www.castorama.pl/result/?q={{product_name}}",
-							"protocol": "https",
+							"raw": "{{environment_url}}/result/?q={{product_name}}",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							],
 							"path": [
 								"result",
@@ -111,7 +110,7 @@
 					"response": []
 				},
 				{
-					"name": "Get details of the product",
+					"name": "getProductDetails",
 					"event": [
 						{
 							"listen": "test",
@@ -121,7 +120,6 @@
 									"  pm.response.to.have.status(200);",
 									"  pm.expect(pm.response.responseTime).to.be.below(1000);",
 									"});",
-									"",
 									"pm.test(\"Product Retrieved\", function () {",
 									"  const responseJson = pm.response.json();",
 									"  pm.expect(responseJson.docs[0].id).to.eql(pm.environment.get(\"product_id\"));",
@@ -161,12 +159,9 @@
 							}
 						],
 						"url": {
-							"raw": "https://se.searchnode.net/v1/query/docs?query_key={{query_key}}&stats.0=f_price_default&search_query={{product_name}}&sort=-score&limit=47&offset=0&facet_filters.s_type=product&boost.i_exist_default.false=-12&boost.i_exist_default.true=3&strict=true&custom.ranking_rules.query_custom_match_field.store=default",
-							"protocol": "https",
+							"raw": "{{search_url}}/v1/query/docs?query_key={{query_key}}&stats.0=f_price_default&search_query={{product_name}}&sort=-score&limit=47&offset=0&facet_filters.s_type=product&boost.i_exist_default.false=-12&boost.i_exist_default.true=3&strict=true&custom.ranking_rules.query_custom_match_field.store=default",
 							"host": [
-								"se",
-								"searchnode",
-								"net"
+								"{{search_url}}"
 							],
 							"path": [
 								"v1",
@@ -224,7 +219,24 @@
 					"response": []
 				},
 				{
-					"name": "Product page?",
+					"name": "displayProduct",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"pm.test(\"Product Id (sku) retrieved\", function () {",
+									"    pm.expect(pm.response.text()).to.include('\"sku\": \"'+ pm.environment.get(\"product_id_sku\") + '\"');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -258,88 +270,24 @@
 							}
 						],
 						"url": {
-							"raw": "https://www.castorama.pl/rekawice-nitrylowe-kf320-site-czerwone-m-id-1099318.html",
-							"protocol": "https",
+							"raw": "{{environment_url}}/{{product_url}}",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							],
 							"path": [
-								"rekawice-nitrylowe-kf320-site-czerwone-m-id-1099318.html"
+								"{{product_url}}"
 							]
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Create Cart",
+			"item": [
 				{
-					"name": "https://www.castorama.pl/bold_all/data/getProductPriceStockByStore/?isAjax=true&store=8016&typeBlock=recommended&needData=1099318",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "sec-ch-ua",
-								"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"102\", \"Google Chrome\";v=\"102\""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json, text/plain, */*"
-							},
-							{
-								"key": "DNT",
-								"value": "1"
-							},
-							{
-								"key": "sec-ch-ua-mobile",
-								"value": "?0"
-							},
-							{
-								"key": "User-Agent",
-								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36"
-							},
-							{
-								"key": "sec-ch-ua-platform",
-								"value": "\"macOS\""
-							}
-						],
-						"url": {
-							"raw": "https://www.castorama.pl/bold_all/data/getProductPriceStockByStore/?isAjax=true&store=8016&typeBlock=recommended&needData=1099318",
-							"protocol": "https",
-							"host": [
-								"www",
-								"castorama",
-								"pl"
-							],
-							"path": [
-								"bold_all",
-								"data",
-								"getProductPriceStockByStore",
-								""
-							],
-							"query": [
-								{
-									"key": "isAjax",
-									"value": "true"
-								},
-								{
-									"key": "store",
-									"value": "8016"
-								},
-								{
-									"key": "typeBlock",
-									"value": "recommended"
-								},
-								{
-									"key": "needData",
-									"value": "1099318"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Empty Cart",
+					"name": "createEmptyCart",
 					"event": [
 						{
 							"listen": "test",
@@ -347,7 +295,7 @@
 								"exec": [
 									"pm.test(\"Success in reasonable time\", function () {",
 									"  pm.response.to.have.status(200);",
-									"  pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
 									"});",
 									"pm.test(\"Cart ID generated\", function () {",
 									"  const responseJson = pm.response.json();",
@@ -400,12 +348,9 @@
 							"raw": "{\n    \"operationName\": \"createEmptyCart\",\n    \"variables\": {},\n    \"query\": \"mutation createEmptyCart {\\n  createEmptyCart\\n}\\n\"\n}"
 						},
 						"url": {
-							"raw": "https://www.castorama.pl/graphql",
-							"protocol": "https",
+							"raw": "{{environment_url}}/graphql",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							],
 							"path": [
 								"graphql"
@@ -415,7 +360,27 @@
 					"response": []
 				},
 				{
-					"name": "Add Product to Cart",
+					"name": "addProductToCart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"pm.test(\"Product Added\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.data.addProductsToCart.currentlyAddedProducts[0][\"sku\"]).to.eq(pm.environment.get(\"product_id_sku\"));",
+									"  pm.expect(responseJson.data.addProductsToCart.currentlyAddedProducts[0][\"qtyAdded\"]).to.eq('1');",
+									"  pm.environment.set(\"cart_product_id\", responseJson.data.addProductsToCart.cart.items[0][\"cartProductId\"]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -454,15 +419,12 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"operationName\": \"addProductsToCart\",\n    \"variables\": {\n        \"cartItems\": [\n            {\n                \"sku\": \"{{product_id}}\",\n                \"quantity\": 1\n            }\n        ],\n        \"cartId\": \"{{cart_id}}\"\n    },\n    \"query\": \"mutation addProductsToCart($cartId: String!, $cartItems: [CartItemInput!]!) {\\n  addProductsToCart(cartId: $cartId, cartItems: $cartItems) {\\n    userErrors: user_errors {\\n      message\\n      code\\n      __typename\\n    }\\n    currentlyAddedProducts: currently_added_products {\\n      rowTotalAdded\\n      qtyAdded\\n      sku\\n      __typename\\n    }\\n    cart {\\n      totalQuantity: total_quantity\\n      isPossibleCheckout: is_possible_checkout\\n      isMultiSource: multisource\\n      prices {\\n        subtotalIncludingTax: subtotal_including_tax {\\n          value\\n          __typename\\n        }\\n        __typename\\n      }\\n      groupedItems: grouped_items {\\n        groupedId: entity_id\\n        sku\\n        name\\n        brandName\\n        category: categoryNamePath\\n        price {\\n          value\\n          __typename\\n        }\\n        __typename\\n      }\\n      items {\\n        cartProductId: id\\n        quantity\\n        ruleIndexId: rule_index_id\\n        prices {\\n          price {\\n            value\\n            __typename\\n          }\\n          rowTotal: row_total {\\n            value\\n            __typename\\n          }\\n          __typename\\n        }\\n        sources {\\n          id: source\\n          qty\\n          __typename\\n        }\\n        product {\\n          groupedId: grouped_id\\n          deliveryMethods: available_shipping_carriers {\\n            deliveryCode: carrier_code\\n            __typename\\n          }\\n          sku\\n          availability\\n          brandName\\n          category: categoryNamePath\\n          name\\n          stock\\n          stockFromDc\\n          uid\\n          url\\n          productId: id\\n          image: thumbnail {\\n            url\\n            __typename\\n          }\\n          adjustQuantity {\\n            max\\n            min\\n            step\\n            __typename\\n          }\\n          backorderDeliveryDays: backorder_delivery_days\\n          priceRange: price_range {\\n            minimumPrice: minimum_price {\\n              finalPrice: final_price {\\n                value\\n                __typename\\n              }\\n              regularPrice: regular_price {\\n                value\\n                __typename\\n              }\\n              __typename\\n            }\\n            __typename\\n          }\\n          alsoBought: also_bought {\\n            productId: id\\n            sku\\n            name\\n            brandName\\n            category: categoryNamePath\\n            url\\n            unitPrice {\\n              unit\\n              __typename\\n            }\\n            image: thumbnail {\\n              url\\n              __typename\\n            }\\n            priceRange: price_range {\\n              minimumPrice: minimum_price {\\n                finalPrice: final_price {\\n                  value\\n                  __typename\\n                }\\n                regularPrice: regular_price {\\n                  value\\n                  __typename\\n                }\\n                __typename\\n              }\\n              __typename\\n            }\\n            promoPrice: promo_price\\n            priceColors: price_colors {\\n              priceBackgroundColor: price_background_color\\n              priceTextColor: price_text_color\\n              crossedSpecialPriceColor: crossed_special_price_color\\n              specialPriceTextColor: special_price_text_color\\n              discountBackgroundColor: discount_background_color\\n              discountTextColor: discount_text_color\\n              __typename\\n            }\\n            labels: product_labels {\\n              entityId: entity_id\\n              type\\n              name\\n              textColor: text_color\\n              backgroundColor: background_color\\n              url\\n              image\\n              __typename\\n            }\\n            catalogLabelActiveFrom: label_product_date_from\\n            catalogLabelActiveUntil: label_product_date_to\\n            __typename\\n          }\\n          maxDisplayedQty: max_displayed_qty\\n          __typename\\n        }\\n        unitPrice {\\n          unit\\n          value\\n          __typename\\n        }\\n        conversionInfo {\\n          conversionUnit: conversion_unit\\n          salesUnitsChange: sales_units_change\\n          conversionValue: value\\n          packSize: conversion_value\\n          __typename\\n        }\\n        __typename\\n      }\\n      availablePaymentMethods: available_payment_methods {\\n        amount {\\n          value\\n          currency\\n          __typename\\n        }\\n        bankList: bank_list {\\n          name\\n          methodId: method_id\\n          src: img_url\\n          __typename\\n        }\\n        title\\n        code\\n        __typename\\n      }\\n      shippingAddresses: shipping_addresses {\\n        availableShippingMethods: available_shipping_methods {\\n          deliveryDetails: delivery_details\\n          available\\n          carrierCode: carrier_code\\n          amount {\\n            value\\n            __typename\\n          }\\n          shippingTimeDescription: shipping_time_desc\\n          availablePaymentMethods: available_payment_methods {\\n            title\\n            code\\n            available\\n            additionalInfo: additional_info\\n            amount {\\n              value\\n              __typename\\n            }\\n            __typename\\n          }\\n          __typename\\n        }\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\"\n}"
+							"raw": "{\n    \"operationName\": \"addProductsToCart\",\n    \"variables\": {\n        \"cartItems\": [\n            {\n                \"sku\": \"{{product_id_sku}}\",\n                \"quantity\": 1\n            }\n        ],\n        \"cartId\": \"{{cart_id}}\"\n    },\n    \"query\": \"mutation addProductsToCart($cartId: String!, $cartItems: [CartItemInput!]!) {\\n  addProductsToCart(cartId: $cartId, cartItems: $cartItems) {\\n    userErrors: user_errors {\\n      message\\n      code\\n      __typename\\n    }\\n    currentlyAddedProducts: currently_added_products {\\n      rowTotalAdded\\n      qtyAdded\\n      sku\\n      __typename\\n    }\\n    cart {\\n      totalQuantity: total_quantity\\n      isPossibleCheckout: is_possible_checkout\\n      isMultiSource: multisource\\n      prices {\\n        subtotalIncludingTax: subtotal_including_tax {\\n          value\\n          __typename\\n        }\\n        __typename\\n      }\\n      groupedItems: grouped_items {\\n        groupedId: entity_id\\n        sku\\n        name\\n        brandName\\n        category: categoryNamePath\\n        price {\\n          value\\n          __typename\\n        }\\n        __typename\\n      }\\n      items {\\n        cartProductId: id\\n        quantity\\n        ruleIndexId: rule_index_id\\n        prices {\\n          price {\\n            value\\n            __typename\\n          }\\n          rowTotal: row_total {\\n            value\\n            __typename\\n          }\\n          __typename\\n        }\\n        sources {\\n          id: source\\n          qty\\n          __typename\\n        }\\n        product {\\n          groupedId: grouped_id\\n          deliveryMethods: available_shipping_carriers {\\n            deliveryCode: carrier_code\\n            __typename\\n          }\\n          sku\\n          availability\\n          brandName\\n          category: categoryNamePath\\n          name\\n          stock\\n          stockFromDc\\n          uid\\n          url\\n          productId: id\\n          image: thumbnail {\\n            url\\n            __typename\\n          }\\n          adjustQuantity {\\n            max\\n            min\\n            step\\n            __typename\\n          }\\n          backorderDeliveryDays: backorder_delivery_days\\n          priceRange: price_range {\\n            minimumPrice: minimum_price {\\n              finalPrice: final_price {\\n                value\\n                __typename\\n              }\\n              regularPrice: regular_price {\\n                value\\n                __typename\\n              }\\n              __typename\\n            }\\n            __typename\\n          }\\n          alsoBought: also_bought {\\n            productId: id\\n            sku\\n            name\\n            brandName\\n            category: categoryNamePath\\n            url\\n            unitPrice {\\n              unit\\n              __typename\\n            }\\n            image: thumbnail {\\n              url\\n              __typename\\n            }\\n            priceRange: price_range {\\n              minimumPrice: minimum_price {\\n                finalPrice: final_price {\\n                  value\\n                  __typename\\n                }\\n                regularPrice: regular_price {\\n                  value\\n                  __typename\\n                }\\n                __typename\\n              }\\n              __typename\\n            }\\n            promoPrice: promo_price\\n            priceColors: price_colors {\\n              priceBackgroundColor: price_background_color\\n              priceTextColor: price_text_color\\n              crossedSpecialPriceColor: crossed_special_price_color\\n              specialPriceTextColor: special_price_text_color\\n              discountBackgroundColor: discount_background_color\\n              discountTextColor: discount_text_color\\n              __typename\\n            }\\n            labels: product_labels {\\n              entityId: entity_id\\n              type\\n              name\\n              textColor: text_color\\n              backgroundColor: background_color\\n              url\\n              image\\n              __typename\\n            }\\n            catalogLabelActiveFrom: label_product_date_from\\n            catalogLabelActiveUntil: label_product_date_to\\n            __typename\\n          }\\n          maxDisplayedQty: max_displayed_qty\\n          __typename\\n        }\\n        unitPrice {\\n          unit\\n          value\\n          __typename\\n        }\\n        conversionInfo {\\n          conversionUnit: conversion_unit\\n          salesUnitsChange: sales_units_change\\n          conversionValue: value\\n          packSize: conversion_value\\n          __typename\\n        }\\n        __typename\\n      }\\n      availablePaymentMethods: available_payment_methods {\\n        amount {\\n          value\\n          currency\\n          __typename\\n        }\\n        bankList: bank_list {\\n          name\\n          methodId: method_id\\n          src: img_url\\n          __typename\\n        }\\n        title\\n        code\\n        __typename\\n      }\\n      shippingAddresses: shipping_addresses {\\n        availableShippingMethods: available_shipping_methods {\\n          deliveryDetails: delivery_details\\n          available\\n          carrierCode: carrier_code\\n          amount {\\n            value\\n            __typename\\n          }\\n          shippingTimeDescription: shipping_time_desc\\n          availablePaymentMethods: available_payment_methods {\\n            title\\n            code\\n            available\\n            additionalInfo: additional_info\\n            amount {\\n              value\\n              __typename\\n            }\\n            __typename\\n          }\\n          __typename\\n        }\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\"\n}"
 						},
 						"url": {
-							"raw": "https://www.castorama.pl/graphql",
-							"protocol": "https",
+							"raw": "{{environment_url}}/graphql",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							],
 							"path": [
 								"graphql"
@@ -472,7 +434,26 @@
 					"response": []
 				},
 				{
-					"name": "Markets ?",
+					"name": "getMarkets",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(100);",
+									"});",
+									"pm.test(\"Shops Available\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson[0]).to.have.property('name');",
+									"  //First shop on the list//",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -502,12 +483,9 @@
 							}
 						],
 						"url": {
-							"raw": "https://www.castorama.pl/api/rest/headless/public/markets",
-							"protocol": "https",
+							"raw": "{{environment_url}}/api/rest/headless/public/markets",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							],
 							"path": [
 								"api",
@@ -521,7 +499,26 @@
 					"response": []
 				},
 				{
-					"name": "https://www.castorama.pl/bold_all/data/getProductPriceStockByStore/?isAjax=true&store=1&typeBlock=recommended&needData=1099318",
+					"name": "getProductStatusStore",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"pm.test(\"Product can be send\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.shipping).to.eq(true)",
+									"  //First shop on the list//",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -551,12 +548,9 @@
 							}
 						],
 						"url": {
-							"raw": "https://www.castorama.pl/bold_all/data/getProductPriceStockByStore/?isAjax=true&store=1&typeBlock=recommended&needData=1099318",
-							"protocol": "https",
+							"raw": "{{environment_url}}/bold_all/data/getProductPriceStockByStore/?isAjax=true&store=8016&typeBlock=recommended&needData=1099318",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							],
 							"path": [
 								"bold_all",
@@ -571,7 +565,7 @@
 								},
 								{
 									"key": "store",
-									"value": "1"
+									"value": "8016"
 								},
 								{
 									"key": "typeBlock",
@@ -587,7 +581,25 @@
 					"response": []
 				},
 				{
-					"name": "https://www.castorama.pl/api/rest/headless/public/market?storeId=8016",
+					"name": "getStoreDetails",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"pm.test(\"Shop Detailes Retrieved\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson).to.have.property('name');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -617,12 +629,9 @@
 							}
 						],
 						"url": {
-							"raw": "https://www.castorama.pl/api/rest/headless/public/market?storeId=8016",
-							"protocol": "https",
+							"raw": "{{environment_url}}/api/rest/headless/public/market?storeId={{first_store_view}}",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							],
 							"path": [
 								"api",
@@ -634,7 +643,7 @@
 							"query": [
 								{
 									"key": "storeId",
-									"value": "8016"
+									"value": "{{first_store_view}}"
 								}
 							]
 						}
@@ -642,7 +651,97 @@
 					"response": []
 				},
 				{
-					"name": "https://www.castorama.pl/graphql",
+					"name": "fetchCart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"pm.test(\"Cart fetched\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.data.cart.items[0].cartProductId).to.eq(pm.environment.get(\"cart_product_id\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sec-ch-ua",
+								"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"102\", \"Google Chrome\";v=\"102\""
+							},
+							{
+								"key": "DNT",
+								"value": "1"
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Store",
+								"value": "v8016"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"macOS\""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operationName\": \"fetchCart\",\n    \"variables\": {\n        \"cartId\": \"{{cart_id}}\"\n    },\n    \"query\": \"query fetchCart($cartId: String!) {\\n  cart(cart_id: $cartId) {\\n    email\\n    totalQuantity: total_quantity\\n    isPossibleCheckout: is_possible_checkout\\n    isMultiSource: multisource\\n    groupedItems: grouped_items {\\n      groupedId: entity_id\\n      sku\\n      name\\n      brandName\\n      category: categoryNamePath\\n      price {\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    items {\\n      cartProductId: id\\n      quantity\\n      ruleIndexId: rule_index_id\\n      prices {\\n        price {\\n          value\\n          __typename\\n        }\\n        rowTotal: row_total {\\n          value\\n          __typename\\n        }\\n        __typename\\n      }\\n      sources {\\n        id: source\\n        qty\\n        __typename\\n      }\\n      product {\\n        groupedId: grouped_id\\n        deliveryMethods: available_shipping_carriers {\\n          deliveryCode: carrier_code\\n          __typename\\n        }\\n        sku\\n        availability\\n        brandName\\n        category: categoryNamePath\\n        name\\n        stock\\n        stockFromDc\\n        url\\n        productId: id\\n        image: thumbnail {\\n          url\\n          __typename\\n        }\\n        adjustQuantity {\\n          max\\n          min\\n          step\\n          __typename\\n        }\\n        backorderDeliveryDays: backorder_delivery_days\\n        showMinQtyInfo\\n        maxDisplayedQty: max_displayed_qty\\n        __typename\\n      }\\n      conversionInfo {\\n        conversionUnit: conversion_unit\\n        salesUnitsChange: sales_units_change\\n        conversionValue: value\\n        packSize: conversion_value\\n        __typename\\n      }\\n      unitPrice {\\n        unit\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    prices {\\n      subtotalIncludingTax: subtotal_including_tax {\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    availablePaymentMethods: available_payment_methods {\\n      amount {\\n        value\\n        currency\\n        __typename\\n      }\\n      bankList: bank_list {\\n        name\\n        methodId: method_id\\n        src: img_url\\n        __typename\\n      }\\n      title\\n      code\\n      __typename\\n    }\\n    shippingAddresses: shipping_addresses {\\n      firstname\\n      lastname\\n      city\\n      zipCode: postcode\\n      telephone\\n      address: street\\n      availableShippingMethods: available_shipping_methods {\\n        deliveryDetails: delivery_details\\n        available\\n        carrierCode: carrier_code\\n        amount {\\n          value\\n          __typename\\n        }\\n        shippingTimeDescription: shipping_time_desc\\n        availablePaymentMethods: available_payment_methods {\\n          title\\n          code\\n          available\\n          additionalInfo: additional_info\\n          amount {\\n            value\\n            __typename\\n          }\\n          __typename\\n        }\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\"\n}"
+						},
+						"url": {
+							"raw": "{{environment_url}}/graphql",
+							"host": [
+								"{{environment_url}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetchCartAvailableStores",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"pm.test(\"Store fetched\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.data.cart.stores[0]).to.have.property('name');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -681,15 +780,12 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"operationName\":\"fetchCartAvailableStores\",\"variables\":{\"cartId\":\"zenM8ji6apRSwoUqTzfTTIJxjgaknWKs\"},\"query\":\"query fetchCartAvailableStores($cartId: String!) {\\n  cart(cart_id: $cartId) {\\n    stores: available_stores {\\n      name\\n      cartAvailable\\n      shopId: market_id\\n      storeId: stock_id\\n      itemsAvailable\\n      itemsAlmostAvailable\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\"}"
+							"raw": "{\n    \"operationName\": \"fetchCartAvailableStores\",\n    \"variables\": {\n        \"cartId\": \"{{cart_id}}\"\n    },\n    \"query\": \"query fetchCartAvailableStores($cartId: String!) {\\n  cart(cart_id: $cartId) {\\n    stores: available_stores {\\n      name\\n      cartAvailable\\n      shopId: market_id\\n      storeId: stock_id\\n      itemsAvailable\\n      itemsAlmostAvailable\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\"\n}"
 						},
 						"url": {
-							"raw": "https://www.castorama.pl/graphql",
-							"protocol": "https",
+							"raw": "{{environment_url}}/graphql",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							],
 							"path": [
 								"graphql"
@@ -697,123 +793,32 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Cart Checkout",
+			"item": [
 				{
-					"name": "https://www.castorama.pl/graphql",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "sec-ch-ua",
-								"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"102\", \"Google Chrome\";v=\"102\""
-							},
-							{
-								"key": "DNT",
-								"value": "1"
-							},
-							{
-								"key": "sec-ch-ua-mobile",
-								"value": "?0"
-							},
-							{
-								"key": "User-Agent",
-								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36"
-							},
-							{
-								"key": "content-type",
-								"value": "application/json"
-							},
-							{
-								"key": "accept",
-								"value": "*/*"
-							},
-							{
-								"key": "Store",
-								"value": "v8016"
-							},
-							{
-								"key": "sec-ch-ua-platform",
-								"value": "\"macOS\""
+					"name": "getCountries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"pm.test(\"Countries Available\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.data.countries[0]).to.have.property('title');",
+									"});"
+								],
+								"type": "text/javascript"
 							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"operationName\":\"fetchCart\",\"variables\":{\"cartId\":\"zenM8ji6apRSwoUqTzfTTIJxjgaknWKs\"},\"query\":\"query fetchCart($cartId: String!) {\\n  cart(cart_id: $cartId) {\\n    email\\n    totalQuantity: total_quantity\\n    isPossibleCheckout: is_possible_checkout\\n    isMultiSource: multisource\\n    groupedItems: grouped_items {\\n      groupedId: entity_id\\n      sku\\n      name\\n      brandName\\n      category: categoryNamePath\\n      price {\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    items {\\n      cartProductId: id\\n      quantity\\n      ruleIndexId: rule_index_id\\n      prices {\\n        price {\\n          value\\n          __typename\\n        }\\n        rowTotal: row_total {\\n          value\\n          __typename\\n        }\\n        __typename\\n      }\\n      sources {\\n        id: source\\n        qty\\n        __typename\\n      }\\n      product {\\n        groupedId: grouped_id\\n        deliveryMethods: available_shipping_carriers {\\n          deliveryCode: carrier_code\\n          __typename\\n        }\\n        sku\\n        availability\\n        brandName\\n        category: categoryNamePath\\n        name\\n        stock\\n        stockFromDc\\n        url\\n        productId: id\\n        image: thumbnail {\\n          url\\n          __typename\\n        }\\n        adjustQuantity {\\n          max\\n          min\\n          step\\n          __typename\\n        }\\n        backorderDeliveryDays: backorder_delivery_days\\n        showMinQtyInfo\\n        maxDisplayedQty: max_displayed_qty\\n        __typename\\n      }\\n      conversionInfo {\\n        conversionUnit: conversion_unit\\n        salesUnitsChange: sales_units_change\\n        conversionValue: value\\n        packSize: conversion_value\\n        __typename\\n      }\\n      unitPrice {\\n        unit\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    prices {\\n      subtotalIncludingTax: subtotal_including_tax {\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    availablePaymentMethods: available_payment_methods {\\n      amount {\\n        value\\n        currency\\n        __typename\\n      }\\n      bankList: bank_list {\\n        name\\n        methodId: method_id\\n        src: img_url\\n        __typename\\n      }\\n      title\\n      code\\n      __typename\\n    }\\n    shippingAddresses: shipping_addresses {\\n      firstname\\n      lastname\\n      city\\n      zipCode: postcode\\n      telephone\\n      address: street\\n      availableShippingMethods: available_shipping_methods {\\n        deliveryDetails: delivery_details\\n        available\\n        carrierCode: carrier_code\\n        amount {\\n          value\\n          __typename\\n        }\\n        shippingTimeDescription: shipping_time_desc\\n        availablePaymentMethods: available_payment_methods {\\n          title\\n          code\\n          available\\n          additionalInfo: additional_info\\n          amount {\\n            value\\n            __typename\\n          }\\n          __typename\\n        }\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\"}"
-						},
-						"url": {
-							"raw": "https://www.castorama.pl/graphql",
-							"protocol": "https",
-							"host": [
-								"www",
-								"castorama",
-								"pl"
-							],
-							"path": [
-								"graphql"
-							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "https://www.castorama.pl/graphql",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "sec-ch-ua",
-								"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"102\", \"Google Chrome\";v=\"102\""
-							},
-							{
-								"key": "DNT",
-								"value": "1"
-							},
-							{
-								"key": "sec-ch-ua-mobile",
-								"value": "?0"
-							},
-							{
-								"key": "User-Agent",
-								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36"
-							},
-							{
-								"key": "content-type",
-								"value": "application/json"
-							},
-							{
-								"key": "accept",
-								"value": "*/*"
-							},
-							{
-								"key": "Store",
-								"value": "v8016"
-							},
-							{
-								"key": "sec-ch-ua-platform",
-								"value": "\"macOS\""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"operationName\":\"fetchCartForCheckout\",\"variables\":{\"cartId\":\"zenM8ji6apRSwoUqTzfTTIJxjgaknWKs\"},\"query\":\"query fetchCartForCheckout($cartId: String!) {\\n  cart(cart_id: $cartId) {\\n    items {\\n      ...CartCheckoutItemsFullFragment\\n      __typename\\n    }\\n    groupedItems: grouped_items {\\n      ...CartGroupedItemsFragment\\n      __typename\\n    }\\n    billingAddress: billing_address {\\n      ...CartBillingAddressFragment\\n      __typename\\n    }\\n    shippingAddresses: shipping_addresses {\\n      ...CartShippingAddressesFragment\\n      __typename\\n    }\\n    paymentMethods: available_payment_methods {\\n      ...CartCheckoutPaymentMethodsFragment\\n      __typename\\n    }\\n    prices {\\n      ...CartCheckoutPricesFragment\\n      __typename\\n    }\\n    castoramaCalendar: castorama_calendar {\\n      ...CartCheckoutCastoramaCalendarFragment\\n      __typename\\n    }\\n    selectedPaymentMethod: selected_payment_method {\\n      ...CartCheckoutSelectedPaymentFragment\\n      __typename\\n    }\\n    email\\n    totalQuantity: total_quantity\\n    isPossibleCheckout: is_possible_checkout\\n    isMultiSource: multisource\\n    dtsSlots: dts_slots {\\n      date\\n      isAvailable: is_available\\n      __typename\\n    }\\n    dtsServices: dts_services {\\n      sku\\n      service\\n      __typename\\n    }\\n    agreements {\\n      name\\n      required\\n      checked\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\\nfragment CartCheckoutItemsFullFragment on CartItemInterface {\\n  cartProductId: id\\n  quantity\\n  ruleIndexId: rule_index_id\\n  prices {\\n    price {\\n      value\\n      __typename\\n    }\\n    rowTotal: row_total {\\n      value\\n      __typename\\n    }\\n    __typename\\n  }\\n  sources {\\n    id: source\\n    qty\\n    __typename\\n  }\\n  product {\\n    groupedId: grouped_id\\n    deliveryMethods: available_shipping_carriers {\\n      deliveryCode: carrier_code\\n      __typename\\n    }\\n    sku\\n    availability\\n    brandName\\n    category: categoryNamePath\\n    name\\n    stock\\n    stockFromDc\\n    uid\\n    url\\n    productId: id\\n    image: thumbnail {\\n      url\\n      __typename\\n    }\\n    adjustQuantity {\\n      max\\n      min\\n      step\\n      __typename\\n    }\\n    backorderDeliveryDays: backorder_delivery_days\\n    showMinQtyInfo\\n    weeeDts: weee_dts\\n    __typename\\n  }\\n  unitPrice {\\n    unit\\n    value\\n    __typename\\n  }\\n  conversionInfo {\\n    value\\n    salesUnitsChange: sales_units_change\\n    unit: conversion_unit\\n    packSize: conversion_value\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartShippingAddressesFragment on ShippingCartAddress {\\n  firstname\\n  lastname\\n  city\\n  shippingDate: shipping_date\\n  shippingTimeInterval: shipping_time_interval\\n  country {\\n    code\\n    label\\n    __typename\\n  }\\n  telephone\\n  telephoneCountry: telephone_country {\\n    code\\n    id\\n    title: label\\n    __typename\\n  }\\n  nip: vat_id\\n  companyName: company\\n  address: street\\n  zipCode: postcode\\n  parcelLocker: parcel_locker {\\n    name\\n    street\\n    city\\n    buildingNumber: building_number\\n    flatNumber: flat_number\\n    postCode: post_code\\n    openingHours: opening_hours\\n    locationDescription: location_description\\n    __typename\\n  }\\n  availableShippingMethods: available_shipping_methods {\\n    deliveryDetails: delivery_details\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    available\\n    shippingTimeDescription: shipping_time_desc\\n    methodCode: method_code\\n    methodTitle: method_title\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    isAutoShippingAddress: auto_shipping_address\\n    availablePaymentMethods: available_payment_methods {\\n      title\\n      code\\n      available\\n      additionalInfo: additional_info\\n      amount {\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n  selectedShippingMethod: selected_shipping_method {\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartBillingAddressFragment on BillingCartAddress {\\n  firstname\\n  lastname\\n  city\\n  country {\\n    code\\n    label\\n    __typename\\n  }\\n  telephone\\n  telephoneCountry: telephone_country {\\n    code\\n    id\\n    title: label\\n    __typename\\n  }\\n  nip: vat_id\\n  companyName: company\\n  address: street\\n  zipCode: postcode\\n  confirmationOfPurchase: confirmation_of_purchase\\n  __typename\\n}\\n\\nfragment CartCheckoutPaymentMethodsFragment on AvailablePaymentMethod {\\n  code\\n  title\\n  available\\n  amount {\\n    currency\\n    value\\n    __typename\\n  }\\n  selectedCreditCard: selected_card\\n  bankList: bank_list {\\n    name\\n    available\\n    selected\\n    methodId: method_id\\n    imgUrl: img_url\\n    mobileImgUrl: mobile_img_url\\n    availableHours: available_hours {\\n      mondayToFriday\\n      saturday\\n      sunday\\n      __typename\\n    }\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartGroupedItemsFragment on GroupedCartItems {\\n  groupedId: entity_id\\n  sku\\n  name\\n  brandName\\n  category: categoryNamePath\\n  price {\\n    value\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutPricesFragment on CartPrices {\\n  grandTotal: grand_total {\\n    value\\n    currency\\n    __typename\\n  }\\n  subtotalIncludingTax: subtotal_including_tax {\\n    value\\n    currency\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutCastoramaCalendarFragment on CastoramaCalendar {\\n  date\\n  available\\n  intervals {\\n    time\\n    available\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutSelectedPaymentFragment on SelectedPaymentMethod {\\n  amount {\\n    value\\n    currency\\n    __typename\\n  }\\n  code\\n  bankName: bank_name\\n  __typename\\n}\\n\"}"
-						},
-						"url": {
-							"raw": "https://www.castorama.pl/graphql",
-							"protocol": "https",
-							"host": [
-								"www",
-								"castorama",
-								"pl"
-							],
-							"path": [
-								"graphql"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "https://www.castorama.pl/graphql?query=query%20getCountries%20%7B%0A%20%20countries%20%7B%0A%20%20%20%20id%0A%20%20%20%20title%3A%20full_name_locale%0A%20%20%20%20__typename%0A%20%20%7D%0A%7D%0A&operationName=getCountries&variables=%7B%7D",
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -847,12 +852,9 @@
 							}
 						],
 						"url": {
-							"raw": "https://www.castorama.pl/graphql?query=query%20getCountries%20%7B%0A%20%20countries%20%7B%0A%20%20%20%20id%0A%20%20%20%20title%3A%20full_name_locale%0A%20%20%20%20__typename%0A%20%20%7D%0A%7D%0A&operationName=getCountries&variables=%7B%7D",
-							"protocol": "https",
+							"raw": "{{environment_url}}/graphql?query=query%20getCountries%20%7B%0A%20%20countries%20%7B%0A%20%20%20%20id%0A%20%20%20%20title%3A%20full_name_locale%0A%20%20%20%20__typename%0A%20%20%7D%0A%7D%0A&operationName=getCountries&variables=%7B%7D",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							],
 							"path": [
 								"graphql"
@@ -876,7 +878,100 @@
 					"response": []
 				},
 				{
-					"name": "https://www.castorama.pl/graphql?query=query%20getTelephoneCountries%20%7B%0A%20%20telephoneCountries%20%7B%0A%20%20%20%20id%0A%20%20%20%20code%0A%20%20%20%20title%3A%20label%0A%20%20%20%20__typename%0A%20%20%7D%0A%7D%0A&operationName=getTelephoneCountrie",
+					"name": "fetchCartForCheckout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"pm.test(\"Cart fetched\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.data.cart.items[0].cartProductId).to.eq(pm.environment.get(\"cart_product_id\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sec-ch-ua",
+								"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"102\", \"Google Chrome\";v=\"102\""
+							},
+							{
+								"key": "DNT",
+								"value": "1"
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Store",
+								"value": "v8016"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"macOS\""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operationName\": \"fetchCartForCheckout\",\n    \"variables\": {\n        \"cartId\": \"{{cart_id}}\"\n    },\n    \"query\": \"query fetchCartForCheckout($cartId: String!) {\\n  cart(cart_id: $cartId) {\\n    items {\\n      ...CartCheckoutItemsFullFragment\\n      __typename\\n    }\\n    groupedItems: grouped_items {\\n      ...CartGroupedItemsFragment\\n      __typename\\n    }\\n    billingAddress: billing_address {\\n      ...CartBillingAddressFragment\\n      __typename\\n    }\\n    shippingAddresses: shipping_addresses {\\n      ...CartShippingAddressesFragment\\n      __typename\\n    }\\n    paymentMethods: available_payment_methods {\\n      ...CartCheckoutPaymentMethodsFragment\\n      __typename\\n    }\\n    prices {\\n      ...CartCheckoutPricesFragment\\n      __typename\\n    }\\n    castoramaCalendar: castorama_calendar {\\n      ...CartCheckoutCastoramaCalendarFragment\\n      __typename\\n    }\\n    selectedPaymentMethod: selected_payment_method {\\n      ...CartCheckoutSelectedPaymentFragment\\n      __typename\\n    }\\n    email\\n    totalQuantity: total_quantity\\n    isPossibleCheckout: is_possible_checkout\\n    isMultiSource: multisource\\n    dtsSlots: dts_slots {\\n      date\\n      isAvailable: is_available\\n      __typename\\n    }\\n    dtsServices: dts_services {\\n      sku\\n      service\\n      __typename\\n    }\\n    agreements {\\n      name\\n      required\\n      checked\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\\nfragment CartCheckoutItemsFullFragment on CartItemInterface {\\n  cartProductId: id\\n  quantity\\n  ruleIndexId: rule_index_id\\n  prices {\\n    price {\\n      value\\n      __typename\\n    }\\n    rowTotal: row_total {\\n      value\\n      __typename\\n    }\\n    __typename\\n  }\\n  sources {\\n    id: source\\n    qty\\n    __typename\\n  }\\n  product {\\n    groupedId: grouped_id\\n    deliveryMethods: available_shipping_carriers {\\n      deliveryCode: carrier_code\\n      __typename\\n    }\\n    sku\\n    availability\\n    brandName\\n    category: categoryNamePath\\n    name\\n    stock\\n    stockFromDc\\n    uid\\n    url\\n    productId: id\\n    image: thumbnail {\\n      url\\n      __typename\\n    }\\n    adjustQuantity {\\n      max\\n      min\\n      step\\n      __typename\\n    }\\n    backorderDeliveryDays: backorder_delivery_days\\n    showMinQtyInfo\\n    weeeDts: weee_dts\\n    __typename\\n  }\\n  unitPrice {\\n    unit\\n    value\\n    __typename\\n  }\\n  conversionInfo {\\n    value\\n    salesUnitsChange: sales_units_change\\n    unit: conversion_unit\\n    packSize: conversion_value\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartShippingAddressesFragment on ShippingCartAddress {\\n  firstname\\n  lastname\\n  city\\n  shippingDate: shipping_date\\n  shippingTimeInterval: shipping_time_interval\\n  country {\\n    code\\n    label\\n    __typename\\n  }\\n  telephone\\n  telephoneCountry: telephone_country {\\n    code\\n    id\\n    title: label\\n    __typename\\n  }\\n  nip: vat_id\\n  companyName: company\\n  address: street\\n  zipCode: postcode\\n  parcelLocker: parcel_locker {\\n    name\\n    street\\n    city\\n    buildingNumber: building_number\\n    flatNumber: flat_number\\n    postCode: post_code\\n    openingHours: opening_hours\\n    locationDescription: location_description\\n    __typename\\n  }\\n  availableShippingMethods: available_shipping_methods {\\n    deliveryDetails: delivery_details\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    available\\n    shippingTimeDescription: shipping_time_desc\\n    methodCode: method_code\\n    methodTitle: method_title\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    isAutoShippingAddress: auto_shipping_address\\n    availablePaymentMethods: available_payment_methods {\\n      title\\n      code\\n      available\\n      additionalInfo: additional_info\\n      amount {\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n  selectedShippingMethod: selected_shipping_method {\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartBillingAddressFragment on BillingCartAddress {\\n  firstname\\n  lastname\\n  city\\n  country {\\n    code\\n    label\\n    __typename\\n  }\\n  telephone\\n  telephoneCountry: telephone_country {\\n    code\\n    id\\n    title: label\\n    __typename\\n  }\\n  nip: vat_id\\n  companyName: company\\n  address: street\\n  zipCode: postcode\\n  confirmationOfPurchase: confirmation_of_purchase\\n  __typename\\n}\\n\\nfragment CartCheckoutPaymentMethodsFragment on AvailablePaymentMethod {\\n  code\\n  title\\n  available\\n  amount {\\n    currency\\n    value\\n    __typename\\n  }\\n  selectedCreditCard: selected_card\\n  bankList: bank_list {\\n    name\\n    available\\n    selected\\n    methodId: method_id\\n    imgUrl: img_url\\n    mobileImgUrl: mobile_img_url\\n    availableHours: available_hours {\\n      mondayToFriday\\n      saturday\\n      sunday\\n      __typename\\n    }\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartGroupedItemsFragment on GroupedCartItems {\\n  groupedId: entity_id\\n  sku\\n  name\\n  brandName\\n  category: categoryNamePath\\n  price {\\n    value\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutPricesFragment on CartPrices {\\n  grandTotal: grand_total {\\n    value\\n    currency\\n    __typename\\n  }\\n  subtotalIncludingTax: subtotal_including_tax {\\n    value\\n    currency\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutCastoramaCalendarFragment on CastoramaCalendar {\\n  date\\n  available\\n  intervals {\\n    time\\n    available\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutSelectedPaymentFragment on SelectedPaymentMethod {\\n  amount {\\n    value\\n    currency\\n    __typename\\n  }\\n  code\\n  bankName: bank_name\\n  __typename\\n}\\n\"\n}"
+						},
+						"url": {
+							"raw": "https://www.castorama.pl/graphql",
+							"protocol": "https",
+							"host": [
+								"www",
+								"castorama",
+								"pl"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCountryPhones",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"pm.test(\"Phones Available\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.data.telephoneCountries[0]).to.have.property('code');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -910,12 +1005,9 @@
 							}
 						],
 						"url": {
-							"raw": "https://www.castorama.pl/graphql?query=query%20getTelephoneCountries%20%7B%0A%20%20telephoneCountries%20%7B%0A%20%20%20%20id%0A%20%20%20%20code%0A%20%20%20%20title%3A%20label%0A%20%20%20%20__typename%0A%20%20%7D%0A%7D%0A&operationName=getTelephoneCountries&variables=%7B%7D",
-							"protocol": "https",
+							"raw": "{{environment_url}}/graphql?query=query%20getTelephoneCountries%20%7B%0A%20%20telephoneCountries%20%7B%0A%20%20%20%20id%0A%20%20%20%20code%0A%20%20%20%20title%3A%20label%0A%20%20%20%20__typename%0A%20%20%7D%0A%7D%0A&operationName=getTelephoneCountries&variables=%7B%7D",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							],
 							"path": [
 								"graphql"
@@ -939,7 +1031,25 @@
 					"response": []
 				},
 				{
-					"name": "https://www.castorama.pl/graphql?query=query%20getCitiesByZipCode(%24zipCode%3A%20String!)%20%7B%0A%20%20cities(zipCode%3A%20%24zipCode)%20%7B%0A%20%20%20%20items%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%20%20street%0A%20%20%20%20%20%20__typename%0A%",
+					"name": "getZipCodes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"pm.test(\"Zip Codes Available\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.data.cities.items[0]).to.have.property('street');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -973,12 +1083,9 @@
 							}
 						],
 						"url": {
-							"raw": "https://www.castorama.pl/graphql?query=query%20getCitiesByZipCode(%24zipCode%3A%20String!)%20%7B%0A%20%20cities(zipCode%3A%20%24zipCode)%20%7B%0A%20%20%20%20items%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%20%20street%0A%20%20%20%20%20%20__typename%0A%20%20%20%20%7D%0A%20%20%20%20__typename%0A%20%20%7D%0A%7D%0A&operationName=getCitiesByZipCode&variables=%7B%22zipCode%22%3A%2246-024%22%7D",
-							"protocol": "https",
+							"raw": "{{environment_url}}/graphql?query=query%20getCitiesByZipCode(%24zipCode%3A%20String!)%20%7B%0A%20%20cities(zipCode%3A%20%24zipCode)%20%7B%0A%20%20%20%20items%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%20%20street%0A%20%20%20%20%20%20__typename%0A%20%20%20%20%7D%0A%20%20%20%20__typename%0A%20%20%7D%0A%7D%0A&operationName=getCitiesByZipCode&variables=%7B%22zipCode%22%3A%2246-024%22%7D",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							],
 							"path": [
 								"graphql"
@@ -1002,7 +1109,25 @@
 					"response": []
 				},
 				{
-					"name": "https://www.castorama.pl/graphql",
+					"name": "setShippingAddressesOnCart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"pm.test(\"Shipping Address Set\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.data.setShippingAddressesOnCart.cart.shippingAddresses[0][\"zipCode\"]).to.eq(pm.environment.get(\"address_zip_code\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1041,15 +1166,12 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"operationName\": \"setShippingAddressesOnCart\",\n    \"variables\": {\n        \"firstname\": \"Jan\",\n        \"lastname\": \"Testowy\",\n        \"phone\": \"609 517 879\",\n        \"phoneCountryId\": \"PL\",\n        \"buildingNumber\": \"1\",\n        \"street\": \"1 Maja\",\n        \"city\": \"Brynica\",\n        \"zipCode\": \"46-024\",\n        \"countryCode\": \"PL\",\n        \"cartId\": \"zenM8ji6apRSwoUqTzfTTIJxjgaknWKs\"\n    },\n    \"query\": \"mutation setShippingAddressesOnCart($cartId: String!, $firstname: String!, $lastname: String!, $phone: String!, $phoneCountryId: CountryCodeEnum!, $flatNumber: String, $buildingNumber: String!, $street: String!, $city: String!, $zipCode: String!, $countryCode: String!, $companyName: String, $nip: String) {\\n  setShippingAddressesOnCart(input: {cart_id: $cartId, shipping_addresses: [{address: {firstname: $firstname, lastname: $lastname, street: [$street, $buildingNumber, $flatNumber], city: $city, postcode: $zipCode, country_code: $countryCode, telephone: $phone, telephone_country_id: $phoneCountryId, company: $companyName, vat_id: $nip, save_in_address_book: false}}]}) {\\n    cart {\\n      items {\\n        ...CartCheckoutItemsMinimalFragment\\n        __typename\\n      }\\n      shippingAddresses: shipping_addresses {\\n        ...CartShippingAddressesFragment\\n        __typename\\n      }\\n      castoramaCalendar: castorama_calendar {\\n        ...CartCheckoutCastoramaCalendarFragment\\n        __typename\\n      }\\n      dtsSlots: dts_slots {\\n        date\\n        isAvailable: is_available\\n        __typename\\n      }\\n      dtsServices: dts_services {\\n        sku\\n        service\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\\nfragment CartCheckoutItemsMinimalFragment on CartItemInterface {\\n  quantity\\n  product {\\n    sku\\n    name\\n    weeeDts: weee_dts\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartShippingAddressesFragment on ShippingCartAddress {\\n  firstname\\n  lastname\\n  city\\n  shippingDate: shipping_date\\n  shippingTimeInterval: shipping_time_interval\\n  country {\\n    code\\n    label\\n    __typename\\n  }\\n  telephone\\n  telephoneCountry: telephone_country {\\n    code\\n    id\\n    title: label\\n    __typename\\n  }\\n  nip: vat_id\\n  companyName: company\\n  address: street\\n  zipCode: postcode\\n  parcelLocker: parcel_locker {\\n    name\\n    street\\n    city\\n    buildingNumber: building_number\\n    flatNumber: flat_number\\n    postCode: post_code\\n    openingHours: opening_hours\\n    locationDescription: location_description\\n    __typename\\n  }\\n  availableShippingMethods: available_shipping_methods {\\n    deliveryDetails: delivery_details\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    available\\n    shippingTimeDescription: shipping_time_desc\\n    methodCode: method_code\\n    methodTitle: method_title\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    isAutoShippingAddress: auto_shipping_address\\n    availablePaymentMethods: available_payment_methods {\\n      title\\n      code\\n      available\\n      additionalInfo: additional_info\\n      amount {\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n  selectedShippingMethod: selected_shipping_method {\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutCastoramaCalendarFragment on CastoramaCalendar {\\n  date\\n  available\\n  intervals {\\n    time\\n    available\\n    __typename\\n  }\\n  __typename\\n}\\n\"\n}"
+							"raw": "{\n    \"operationName\": \"setShippingAddressesOnCart\",\n    \"variables\": {\n        \"firstname\": \"Jan\",\n        \"lastname\": \"Testowy\",\n        \"phone\": \"779 517 879\",\n        \"phoneCountryId\": \"PL\",\n        \"buildingNumber\": \"1\",\n        \"street\": \"1 Maja\",\n        \"city\": \"Brynica\",\n        \"zipCode\": \"{{address_zip_code}}\",\n        \"countryCode\": \"PL\",\n        \"cartId\": \"{{cart_id}}\"\n    },\n    \"query\": \"mutation setShippingAddressesOnCart($cartId: String!, $firstname: String!, $lastname: String!, $phone: String!, $phoneCountryId: CountryCodeEnum!, $flatNumber: String, $buildingNumber: String!, $street: String!, $city: String!, $zipCode: String!, $countryCode: String!, $companyName: String, $nip: String) {\\n  setShippingAddressesOnCart(input: {cart_id: $cartId, shipping_addresses: [{address: {firstname: $firstname, lastname: $lastname, street: [$street, $buildingNumber, $flatNumber], city: $city, postcode: $zipCode, country_code: $countryCode, telephone: $phone, telephone_country_id: $phoneCountryId, company: $companyName, vat_id: $nip, save_in_address_book: false}}]}) {\\n    cart {\\n      items {\\n        ...CartCheckoutItemsMinimalFragment\\n        __typename\\n      }\\n      shippingAddresses: shipping_addresses {\\n        ...CartShippingAddressesFragment\\n        __typename\\n      }\\n      castoramaCalendar: castorama_calendar {\\n        ...CartCheckoutCastoramaCalendarFragment\\n        __typename\\n      }\\n      dtsSlots: dts_slots {\\n        date\\n        isAvailable: is_available\\n        __typename\\n      }\\n      dtsServices: dts_services {\\n        sku\\n        service\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\\nfragment CartCheckoutItemsMinimalFragment on CartItemInterface {\\n  quantity\\n  product {\\n    sku\\n    name\\n    weeeDts: weee_dts\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartShippingAddressesFragment on ShippingCartAddress {\\n  firstname\\n  lastname\\n  city\\n  shippingDate: shipping_date\\n  shippingTimeInterval: shipping_time_interval\\n  country {\\n    code\\n    label\\n    __typename\\n  }\\n  telephone\\n  telephoneCountry: telephone_country {\\n    code\\n    id\\n    title: label\\n    __typename\\n  }\\n  nip: vat_id\\n  companyName: company\\n  address: street\\n  zipCode: postcode\\n  parcelLocker: parcel_locker {\\n    name\\n    street\\n    city\\n    buildingNumber: building_number\\n    flatNumber: flat_number\\n    postCode: post_code\\n    openingHours: opening_hours\\n    locationDescription: location_description\\n    __typename\\n  }\\n  availableShippingMethods: available_shipping_methods {\\n    deliveryDetails: delivery_details\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    available\\n    shippingTimeDescription: shipping_time_desc\\n    methodCode: method_code\\n    methodTitle: method_title\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    isAutoShippingAddress: auto_shipping_address\\n    availablePaymentMethods: available_payment_methods {\\n      title\\n      code\\n      available\\n      additionalInfo: additional_info\\n      amount {\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n  selectedShippingMethod: selected_shipping_method {\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutCastoramaCalendarFragment on CastoramaCalendar {\\n  date\\n  available\\n  intervals {\\n    time\\n    available\\n    __typename\\n  }\\n  __typename\\n}\\n\"\n}"
 						},
 						"url": {
-							"raw": "https://www.castorama.pl/graphql",
-							"protocol": "https",
+							"raw": "{{environment_url}}/graphql",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							],
 							"path": [
 								"graphql"
@@ -1059,7 +1181,26 @@
 					"response": []
 				},
 				{
-					"name": "https://www.castorama.pl/graphql",
+					"name": "setGuestEmailOnCart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"pm.test(\"Guest email Set\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.data.setGuestEmailOnCart.cart[\"email\"]).to.eq(pm.environment.get(\"address_email\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1098,15 +1239,12 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"operationName\": \"setGuestEmailOnCart\",\n    \"variables\": {\n        \"email\": \"test@test.com\",\n        \"cartId\": \"zenM8ji6apRSwoUqTzfTTIJxjgaknWKs\"\n    },\n    \"query\": \"mutation setGuestEmailOnCart($cartId: String!, $email: String!) {\\n  setGuestEmailOnCart(input: {cart_id: $cartId, email: $email}) {\\n    cart {\\n      email\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\"\n}"
+							"raw": "{\n    \"operationName\": \"setGuestEmailOnCart\",\n    \"variables\": {\n        \"email\": \"{{address_email}}\",\n        \"cartId\": \"{{cart_id}}\"\n    },\n    \"query\": \"mutation setGuestEmailOnCart($cartId: String!, $email: String!) {\\n  setGuestEmailOnCart(input: {cart_id: $cartId, email: $email}) {\\n    cart {\\n      email\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\"\n}"
 						},
 						"url": {
-							"raw": "https://www.castorama.pl/graphql",
-							"protocol": "https",
+							"raw": "{{environment_url}}/graphql",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							],
 							"path": [
 								"graphql"
@@ -1116,7 +1254,25 @@
 					"response": []
 				},
 				{
-					"name": "https://www.castorama.pl/graphql",
+					"name": "setShippingMethodsOnCart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"pm.test(\"Shipping Method Set\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.data.setShippingMethodsOnCart).to.be.an(\"object\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1155,15 +1311,12 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"operationName\": \"setBillingAddressOnCart\",\n    \"variables\": {\n        \"firstname\": \"Jan\",\n        \"lastname\": \"Testowy\",\n        \"phone\": \"609 517 879\",\n        \"phoneCountryId\": \"PL\",\n        \"buildingNumber\": \"1\",\n        \"street\": \"1 Maja\",\n        \"city\": \"Brynica\",\n        \"zipCode\": \"46-024\",\n        \"countryCode\": \"PL\",\n        \"confirmationOfPurchase\": \"RECEIPT\",\n        \"cartId\": \"zenM8ji6apRSwoUqTzfTTIJxjgaknWKs\"\n    },\n    \"query\": \"mutation setBillingAddressOnCart($cartId: String!, $firstname: String!, $lastname: String!, $phone: String!, $flatNumber: String, $buildingNumber: String!, $street: String!, $city: String!, $zipCode: String!, $countryCode: String!, $companyName: String, $sameAsShipping: Boolean, $phoneCountryId: CountryCodeEnum!, $nip: String, $confirmationOfPurchase: ConfirmationOfPurchaseTypeEnum) {\\n  setBillingAddressOnCart(input: {cart_id: $cartId, billing_address: {address: {firstname: $firstname, lastname: $lastname, street: [$street, $buildingNumber, $flatNumber], city: $city, postcode: $zipCode, country_code: $countryCode, telephone: $phone, telephone_country_id: $phoneCountryId, company: $companyName, vat_id: $nip, save_in_address_book: false, confirmation_of_purchase: $confirmationOfPurchase}, same_as_shipping: $sameAsShipping}}) {\\n    cart {\\n      items {\\n        ...CartCheckoutItemsMinimalFragment\\n        __typename\\n      }\\n      shippingAddresses: shipping_addresses {\\n        ...CartShippingAddressesFragment\\n        __typename\\n      }\\n      prices {\\n        ...CartCheckoutPricesFragment\\n        __typename\\n      }\\n      castoramaCalendar: castorama_calendar {\\n        ...CartCheckoutCastoramaCalendarFragment\\n        __typename\\n      }\\n      selectedPaymentMethod: selected_payment_method {\\n        ...CartCheckoutSelectedPaymentFragment\\n        __typename\\n      }\\n      dtsSlots: dts_slots {\\n        date\\n        isAvailable: is_available\\n        __typename\\n      }\\n      dtsServices: dts_services {\\n        sku\\n        service\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\\nfragment CartCheckoutItemsMinimalFragment on CartItemInterface {\\n  quantity\\n  product {\\n    sku\\n    name\\n    weeeDts: weee_dts\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartShippingAddressesFragment on ShippingCartAddress {\\n  firstname\\n  lastname\\n  city\\n  shippingDate: shipping_date\\n  shippingTimeInterval: shipping_time_interval\\n  country {\\n    code\\n    label\\n    __typename\\n  }\\n  telephone\\n  telephoneCountry: telephone_country {\\n    code\\n    id\\n    title: label\\n    __typename\\n  }\\n  nip: vat_id\\n  companyName: company\\n  address: street\\n  zipCode: postcode\\n  parcelLocker: parcel_locker {\\n    name\\n    street\\n    city\\n    buildingNumber: building_number\\n    flatNumber: flat_number\\n    postCode: post_code\\n    openingHours: opening_hours\\n    locationDescription: location_description\\n    __typename\\n  }\\n  availableShippingMethods: available_shipping_methods {\\n    deliveryDetails: delivery_details\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    available\\n    shippingTimeDescription: shipping_time_desc\\n    methodCode: method_code\\n    methodTitle: method_title\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    isAutoShippingAddress: auto_shipping_address\\n    availablePaymentMethods: available_payment_methods {\\n      title\\n      code\\n      available\\n      additionalInfo: additional_info\\n      amount {\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n  selectedShippingMethod: selected_shipping_method {\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutPricesFragment on CartPrices {\\n  grandTotal: grand_total {\\n    value\\n    currency\\n    __typename\\n  }\\n  subtotalIncludingTax: subtotal_including_tax {\\n    value\\n    currency\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutCastoramaCalendarFragment on CastoramaCalendar {\\n  date\\n  available\\n  intervals {\\n    time\\n    available\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutSelectedPaymentFragment on SelectedPaymentMethod {\\n  amount {\\n    value\\n    currency\\n    __typename\\n  }\\n  code\\n  bankName: bank_name\\n  __typename\\n}\\n\"\n}"
+							"raw": "{\n    \"operationName\": \"setShippingMethodsOnCart\",\n    \"variables\": {\n        \"carrierCode\": \"clickandcollect\",\n        \"methodCode\": \"standard\",\n        \"cartId\": \"{{cart_id}}}\"\n    },\n    \"query\": \"mutation setShippingMethodsOnCart($cartId: String!, $carrierCode: String!, $methodCode: String!) {\\n  setShippingMethodsOnCart(input: {cart_id: $cartId, shipping_methods: {carrier_code: $carrierCode, method_code: $methodCode}}) {\\n    cart {\\n      items {\\n        ...CartCheckoutItemsMinimalFragment\\n        __typename\\n      }\\n      shippingAddresses: shipping_addresses {\\n        ...CartShippingAddressesFragment\\n        __typename\\n      }\\n      paymentMethods: available_payment_methods {\\n        ...CartCheckoutPaymentMethodsFragment\\n        __typename\\n      }\\n      prices {\\n        ...CartCheckoutPricesFragment\\n        __typename\\n      }\\n      castoramaCalendar: castorama_calendar {\\n        ...CartCheckoutCastoramaCalendarFragment\\n        __typename\\n      }\\n      selectedPaymentMethod: selected_payment_method {\\n        ...CartCheckoutSelectedPaymentFragment\\n        __typename\\n      }\\n      dtsSlots: dts_slots {\\n        date\\n        isAvailable: is_available\\n        __typename\\n      }\\n      dtsServices: dts_services {\\n        sku\\n        service\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\\nfragment CartCheckoutItemsMinimalFragment on CartItemInterface {\\n  quantity\\n  product {\\n    sku\\n    name\\n    weeeDts: weee_dts\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartShippingAddressesFragment on ShippingCartAddress {\\n  firstname\\n  lastname\\n  city\\n  shippingDate: shipping_date\\n  shippingTimeInterval: shipping_time_interval\\n  country {\\n    code\\n    label\\n    __typename\\n  }\\n  telephone\\n  telephoneCountry: telephone_country {\\n    code\\n    id\\n    title: label\\n    __typename\\n  }\\n  nip: vat_id\\n  companyName: company\\n  address: street\\n  zipCode: postcode\\n  parcelLocker: parcel_locker {\\n    name\\n    street\\n    city\\n    buildingNumber: building_number\\n    flatNumber: flat_number\\n    postCode: post_code\\n    openingHours: opening_hours\\n    locationDescription: location_description\\n    __typename\\n  }\\n  availableShippingMethods: available_shipping_methods {\\n    deliveryDetails: delivery_details\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    available\\n    shippingTimeDescription: shipping_time_desc\\n    methodCode: method_code\\n    methodTitle: method_title\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    isAutoShippingAddress: auto_shipping_address\\n    availablePaymentMethods: available_payment_methods {\\n      title\\n      code\\n      available\\n      additionalInfo: additional_info\\n      amount {\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n  selectedShippingMethod: selected_shipping_method {\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutPaymentMethodsFragment on AvailablePaymentMethod {\\n  code\\n  title\\n  available\\n  amount {\\n    currency\\n    value\\n    __typename\\n  }\\n  selectedCreditCard: selected_card\\n  bankList: bank_list {\\n    name\\n    available\\n    selected\\n    methodId: method_id\\n    imgUrl: img_url\\n    mobileImgUrl: mobile_img_url\\n    availableHours: available_hours {\\n      mondayToFriday\\n      saturday\\n      sunday\\n      __typename\\n    }\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutPricesFragment on CartPrices {\\n  grandTotal: grand_total {\\n    value\\n    currency\\n    __typename\\n  }\\n  subtotalIncludingTax: subtotal_including_tax {\\n    value\\n    currency\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutCastoramaCalendarFragment on CastoramaCalendar {\\n  date\\n  available\\n  intervals {\\n    time\\n    available\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutSelectedPaymentFragment on SelectedPaymentMethod {\\n  amount {\\n    value\\n    currency\\n    __typename\\n  }\\n  code\\n  bankName: bank_name\\n  __typename\\n}\\n\"\n}"
 						},
 						"url": {
-							"raw": "https://www.castorama.pl/graphql",
-							"protocol": "https",
+							"raw": "{{environment_url}}/graphql",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
 							],
 							"path": [
 								"graphql"
@@ -1173,7 +1326,25 @@
 					"response": []
 				},
 				{
-					"name": "https://www.castorama.pl/graphql",
+					"name": "setPaymentMethod",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"pm.test(\"Payment Method Set\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.data.setPaymentMethodOnCart).to.be.an(\"object\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1212,15 +1383,84 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"operationName\": \"setShippingMethodsOnCart\",\n    \"variables\": {\n        \"carrierCode\": \"clickandcollect\",\n        \"methodCode\": \"standard\",\n        \"cartId\": \"zenM8ji6apRSwoUqTzfTTIJxjgaknWKs\"\n    },\n    \"query\": \"mutation setShippingMethodsOnCart($cartId: String!, $carrierCode: String!, $methodCode: String!) {\\n  setShippingMethodsOnCart(input: {cart_id: $cartId, shipping_methods: {carrier_code: $carrierCode, method_code: $methodCode}}) {\\n    cart {\\n      items {\\n        ...CartCheckoutItemsMinimalFragment\\n        __typename\\n      }\\n      shippingAddresses: shipping_addresses {\\n        ...CartShippingAddressesFragment\\n        __typename\\n      }\\n      paymentMethods: available_payment_methods {\\n        ...CartCheckoutPaymentMethodsFragment\\n        __typename\\n      }\\n      prices {\\n        ...CartCheckoutPricesFragment\\n        __typename\\n      }\\n      castoramaCalendar: castorama_calendar {\\n        ...CartCheckoutCastoramaCalendarFragment\\n        __typename\\n      }\\n      selectedPaymentMethod: selected_payment_method {\\n        ...CartCheckoutSelectedPaymentFragment\\n        __typename\\n      }\\n      dtsSlots: dts_slots {\\n        date\\n        isAvailable: is_available\\n        __typename\\n      }\\n      dtsServices: dts_services {\\n        sku\\n        service\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\\nfragment CartCheckoutItemsMinimalFragment on CartItemInterface {\\n  quantity\\n  product {\\n    sku\\n    name\\n    weeeDts: weee_dts\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartShippingAddressesFragment on ShippingCartAddress {\\n  firstname\\n  lastname\\n  city\\n  shippingDate: shipping_date\\n  shippingTimeInterval: shipping_time_interval\\n  country {\\n    code\\n    label\\n    __typename\\n  }\\n  telephone\\n  telephoneCountry: telephone_country {\\n    code\\n    id\\n    title: label\\n    __typename\\n  }\\n  nip: vat_id\\n  companyName: company\\n  address: street\\n  zipCode: postcode\\n  parcelLocker: parcel_locker {\\n    name\\n    street\\n    city\\n    buildingNumber: building_number\\n    flatNumber: flat_number\\n    postCode: post_code\\n    openingHours: opening_hours\\n    locationDescription: location_description\\n    __typename\\n  }\\n  availableShippingMethods: available_shipping_methods {\\n    deliveryDetails: delivery_details\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    available\\n    shippingTimeDescription: shipping_time_desc\\n    methodCode: method_code\\n    methodTitle: method_title\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    isAutoShippingAddress: auto_shipping_address\\n    availablePaymentMethods: available_payment_methods {\\n      title\\n      code\\n      available\\n      additionalInfo: additional_info\\n      amount {\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n  selectedShippingMethod: selected_shipping_method {\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutPaymentMethodsFragment on AvailablePaymentMethod {\\n  code\\n  title\\n  available\\n  amount {\\n    currency\\n    value\\n    __typename\\n  }\\n  selectedCreditCard: selected_card\\n  bankList: bank_list {\\n    name\\n    available\\n    selected\\n    methodId: method_id\\n    imgUrl: img_url\\n    mobileImgUrl: mobile_img_url\\n    availableHours: available_hours {\\n      mondayToFriday\\n      saturday\\n      sunday\\n      __typename\\n    }\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutPricesFragment on CartPrices {\\n  grandTotal: grand_total {\\n    value\\n    currency\\n    __typename\\n  }\\n  subtotalIncludingTax: subtotal_including_tax {\\n    value\\n    currency\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutCastoramaCalendarFragment on CastoramaCalendar {\\n  date\\n  available\\n  intervals {\\n    time\\n    available\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutSelectedPaymentFragment on SelectedPaymentMethod {\\n  amount {\\n    value\\n    currency\\n    __typename\\n  }\\n  code\\n  bankName: bank_name\\n  __typename\\n}\\n\"\n}"
+							"raw": "{\n    \"operationName\": \"setPaymentMethodOnCart\",\n    \"variables\": {\n        \"paymentMethodCode\": \"{{payment_method}}\",\n        \"cartId\": \"{{cart_id}}\"\n    },\n    \"query\": \"mutation setPaymentMethodOnCart($cartId: String!, $paymentMethodCode: String!) {\\n  setPaymentMethodOnCart(input: {cart_id: $cartId, payment_method: {code: $paymentMethodCode}}) {\\n    cart {\\n      items {\\n        ...CartCheckoutItemsMinimalFragment\\n        __typename\\n      }\\n      shippingAddresses: shipping_addresses {\\n        ...CartShippingAddressesFragment\\n        __typename\\n      }\\n      paymentMethods: available_payment_methods {\\n        ...CartCheckoutPaymentMethodsFragment\\n        __typename\\n      }\\n      prices {\\n        ...CartCheckoutPricesFragment\\n        __typename\\n      }\\n      castoramaCalendar: castorama_calendar {\\n        ...CartCheckoutCastoramaCalendarFragment\\n        __typename\\n      }\\n      selectedPaymentMethod: selected_payment_method {\\n        ...CartCheckoutSelectedPaymentFragment\\n        __typename\\n      }\\n      dtsSlots: dts_slots {\\n        date\\n        isAvailable: is_available\\n        __typename\\n      }\\n      dtsServices: dts_services {\\n        sku\\n        service\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\\nfragment CartCheckoutItemsMinimalFragment on CartItemInterface {\\n  quantity\\n  product {\\n    sku\\n    name\\n    weeeDts: weee_dts\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartShippingAddressesFragment on ShippingCartAddress {\\n  firstname\\n  lastname\\n  city\\n  shippingDate: shipping_date\\n  shippingTimeInterval: shipping_time_interval\\n  country {\\n    code\\n    label\\n    __typename\\n  }\\n  telephone\\n  telephoneCountry: telephone_country {\\n    code\\n    id\\n    title: label\\n    __typename\\n  }\\n  nip: vat_id\\n  companyName: company\\n  address: street\\n  zipCode: postcode\\n  parcelLocker: parcel_locker {\\n    name\\n    street\\n    city\\n    buildingNumber: building_number\\n    flatNumber: flat_number\\n    postCode: post_code\\n    openingHours: opening_hours\\n    locationDescription: location_description\\n    __typename\\n  }\\n  availableShippingMethods: available_shipping_methods {\\n    deliveryDetails: delivery_details\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    available\\n    shippingTimeDescription: shipping_time_desc\\n    methodCode: method_code\\n    methodTitle: method_title\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    isAutoShippingAddress: auto_shipping_address\\n    availablePaymentMethods: available_payment_methods {\\n      title\\n      code\\n      available\\n      additionalInfo: additional_info\\n      amount {\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n  selectedShippingMethod: selected_shipping_method {\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutPaymentMethodsFragment on AvailablePaymentMethod {\\n  code\\n  title\\n  available\\n  amount {\\n    currency\\n    value\\n    __typename\\n  }\\n  selectedCreditCard: selected_card\\n  bankList: bank_list {\\n    name\\n    available\\n    selected\\n    methodId: method_id\\n    imgUrl: img_url\\n    mobileImgUrl: mobile_img_url\\n    availableHours: available_hours {\\n      mondayToFriday\\n      saturday\\n      sunday\\n      __typename\\n    }\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutPricesFragment on CartPrices {\\n  grandTotal: grand_total {\\n    value\\n    currency\\n    __typename\\n  }\\n  subtotalIncludingTax: subtotal_including_tax {\\n    value\\n    currency\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutCastoramaCalendarFragment on CastoramaCalendar {\\n  date\\n  available\\n  intervals {\\n    time\\n    available\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutSelectedPaymentFragment on SelectedPaymentMethod {\\n  amount {\\n    value\\n    currency\\n    __typename\\n  }\\n  code\\n  bankName: bank_name\\n  __typename\\n}\\n\"\n}"
 						},
 						"url": {
-							"raw": "https://www.castorama.pl/graphql",
-							"protocol": "https",
+							"raw": "{{environment_url}}/graphql",
 							"host": [
-								"www",
-								"castorama",
-								"pl"
+								"{{environment_url}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "setBillingAddressOnCart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Success in reasonable time\", function () {",
+									"  pm.response.to.have.status(200);",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"pm.test(\"Billing Address Set\", function () {",
+									"  const responseJson = pm.response.json();",
+									"  pm.expect(responseJson.data.setBillingAddressOnCart).to.be.an(\"object\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sec-ch-ua",
+								"value": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"102\", \"Google Chrome\";v=\"102\""
+							},
+							{
+								"key": "DNT",
+								"value": "1"
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Store",
+								"value": "v8016"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"macOS\""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operationName\": \"setBillingAddressOnCart\",\n    \"variables\": {\n        \"firstname\": \"Jan\",\n        \"lastname\": \"Testowy\",\n        \"phone\": \"609 517 879\",\n        \"phoneCountryId\": \"PL\",\n        \"buildingNumber\": \"1\",\n        \"street\": \"1 Maja\",\n        \"city\": \"Brynica\",\n        \"zipCode\": \"46-024\",\n        \"countryCode\": \"PL\",\n        \"confirmationOfPurchase\": \"RECEIPT\",\n        \"cartId\": \"{{cart_id}}\"\n    },\n    \"query\": \"mutation setBillingAddressOnCart($cartId: String!, $firstname: String!, $lastname: String!, $phone: String!, $flatNumber: String, $buildingNumber: String!, $street: String!, $city: String!, $zipCode: String!, $countryCode: String!, $companyName: String, $sameAsShipping: Boolean, $phoneCountryId: CountryCodeEnum!, $nip: String, $confirmationOfPurchase: ConfirmationOfPurchaseTypeEnum) {\\n  setBillingAddressOnCart(input: {cart_id: $cartId, billing_address: {address: {firstname: $firstname, lastname: $lastname, street: [$street, $buildingNumber, $flatNumber], city: $city, postcode: $zipCode, country_code: $countryCode, telephone: $phone, telephone_country_id: $phoneCountryId, company: $companyName, vat_id: $nip, save_in_address_book: false, confirmation_of_purchase: $confirmationOfPurchase}, same_as_shipping: $sameAsShipping}}) {\\n    cart {\\n      items {\\n        ...CartCheckoutItemsMinimalFragment\\n        __typename\\n      }\\n      shippingAddresses: shipping_addresses {\\n        ...CartShippingAddressesFragment\\n        __typename\\n      }\\n      prices {\\n        ...CartCheckoutPricesFragment\\n        __typename\\n      }\\n      castoramaCalendar: castorama_calendar {\\n        ...CartCheckoutCastoramaCalendarFragment\\n        __typename\\n      }\\n      selectedPaymentMethod: selected_payment_method {\\n        ...CartCheckoutSelectedPaymentFragment\\n        __typename\\n      }\\n      dtsSlots: dts_slots {\\n        date\\n        isAvailable: is_available\\n        __typename\\n      }\\n      dtsServices: dts_services {\\n        sku\\n        service\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\\nfragment CartCheckoutItemsMinimalFragment on CartItemInterface {\\n  quantity\\n  product {\\n    sku\\n    name\\n    weeeDts: weee_dts\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartShippingAddressesFragment on ShippingCartAddress {\\n  firstname\\n  lastname\\n  city\\n  shippingDate: shipping_date\\n  shippingTimeInterval: shipping_time_interval\\n  country {\\n    code\\n    label\\n    __typename\\n  }\\n  telephone\\n  telephoneCountry: telephone_country {\\n    code\\n    id\\n    title: label\\n    __typename\\n  }\\n  nip: vat_id\\n  companyName: company\\n  address: street\\n  zipCode: postcode\\n  parcelLocker: parcel_locker {\\n    name\\n    street\\n    city\\n    buildingNumber: building_number\\n    flatNumber: flat_number\\n    postCode: post_code\\n    openingHours: opening_hours\\n    locationDescription: location_description\\n    __typename\\n  }\\n  availableShippingMethods: available_shipping_methods {\\n    deliveryDetails: delivery_details\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    available\\n    shippingTimeDescription: shipping_time_desc\\n    methodCode: method_code\\n    methodTitle: method_title\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    isAutoShippingAddress: auto_shipping_address\\n    availablePaymentMethods: available_payment_methods {\\n      title\\n      code\\n      available\\n      additionalInfo: additional_info\\n      amount {\\n        value\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n  selectedShippingMethod: selected_shipping_method {\\n    amount {\\n      currency\\n      value\\n      __typename\\n    }\\n    carrierCode: carrier_code\\n    carrierTitle: carrier_title\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutPricesFragment on CartPrices {\\n  grandTotal: grand_total {\\n    value\\n    currency\\n    __typename\\n  }\\n  subtotalIncludingTax: subtotal_including_tax {\\n    value\\n    currency\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutCastoramaCalendarFragment on CastoramaCalendar {\\n  date\\n  available\\n  intervals {\\n    time\\n    available\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment CartCheckoutSelectedPaymentFragment on SelectedPaymentMethod {\\n  amount {\\n    value\\n    currency\\n    __typename\\n  }\\n  code\\n  bankName: bank_name\\n  __typename\\n}\\n\"\n}"
+						},
+						"url": {
+							"raw": "{{environment_url}}/graphql",
+							"host": [
+								"{{environment_url}}"
 							],
 							"path": [
 								"graphql"
