@@ -1,5 +1,5 @@
 # Strix
-Strix_zadanie rekrutacyjne
+Recruitment Exercise
 ## Exercise 1
 ### Introduction:
 This exerecise was cretaed with the help of **Postman** The collection and environment files are availabie in the Strix/Exercise1 path.
