@@ -51,11 +51,19 @@ Every 5 minutes / per country region
 
 ## Exercise 2
 ### Introduction
-1. Functional Analysis of the page [https://coggle.it/diagram/YrYu8LndxQl8MoIF/t/semilac-pl]
-2. Functional Flows of the page and prioritisation [https://docs.google.com/spreadsheets/d/1YTQLFPOZr83975LFVXIoEw5UtAZLwy5arq4D67wmeYM/edit#gid=0]
+The exercise was performed following the below flow:
+1. Functional Analysis of the page using [mindmap](https://coggle.it/diagram/YrYu8LndxQl8MoIF/t/semilac-pl)
+2. Analysis of the User Flows and prioritisation - Priority Tab [https://docs.google.com/spreadsheets/d/1YTQLFPOZr83975LFVXIoEw5UtAZLwy5arq4D67wmeYM/edit?usp=sharing]
+3. Designing the scope of the Pages need for test automation - Page Objects [https://docs.google.com/spreadsheets/d/1YTQLFPOZr83975LFVXIoEw5UtAZLwy5arq4D67wmeYM/edit#gid=968477189]
 ### Assumptions/Limitations
-1. Functional Analysis of the page [https://coggle.it/diagram/YrYu8LndxQl8MoIF/t/semilac-pl]
+1. Functional Analysis of the [page](https://coggle.it/diagram/YrYu8LndxQl8MoIF/t/semilac-pl)
 2. Functional Flows of the page and prioritisation [https://docs.google.com/spreadsheets/d/1YTQLFPOZr83975LFVXIoEw5UtAZLwy5arq4D67wmeYM/edit#gid=0]
 3. 
 ## Exercise 3
 ## Exercise 4
+### Authorization
+- u:JanekzChmur (at) gmail.com
+- p:lowercas user name
+### Assumptions/Limitations:
+- The execution on the BrowserStack shows that there is still a timing issue for the Chrome browsers
+
