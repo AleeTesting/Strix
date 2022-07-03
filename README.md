@@ -70,6 +70,7 @@ The exercise was performed following the below flow:
 ### Authorization
 - u:JanekzChmur (at) gmail.com
 - p:lowercas user name
+- [public link](https://automate.browserstack.com/dashboard/v2/public-build/MTc1NERIaXdaU1NXRGdXM1UxV2RxMk9Sb0JVY3Q3b05aSFlCcUxkdzVPRjh4YzJ1ZHY4RHNmVTlMNEVHQ25zYS91dXYzb0lFTnpKNXFTdm9CUVRnb1E9PS0teC9ORStzaGs4NjgvaGFvb2xzM1Q5dz09--c810abd4014c96569ad2f08518978a9db47667fa)
 ### Assumptions/Limitations:
 - The execution on the BrowserStack shows that there is still a timing issue for the Chrome browsers when trying to open search field
 
