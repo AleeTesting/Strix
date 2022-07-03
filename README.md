@@ -69,11 +69,11 @@ The exercise was performed following the below flow:
 - The execution of the 2 out of 7 steps, is already consuming 30-40 seconds, which indicates that the full test script will take aroung 2-3 minutes. 
 ## Exercise 3
 ### Introduction
-The execution of the test was planned on the docket and predefined image comming from Cypress. Thanks to this image it is possible to [run Cypress with a single Docker command](https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command/)
+The execution of the test was planned on the docker and predefined image comming from Cypress. Thanks to this image it is possible to [run Cypress with a single Docker command](https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command/)
 ```
 docker run -it -v $PWD:/e2e -w /e2e cypress/included:9.7.0
 ```
-or using the  docker config file
+or using the docker config file
 
 ```
 docker build -t cypress-test-image:1.0.0 -f dockerfile .
@@ -105,7 +105,7 @@ lipskia@Aleksanders-MacBook-Pro Exercise_2 %
 ```
 ## Exercise 4
 ### Authorization
-- u:JanekzChmur (at) gmail.com
+- u:JanekzChmur (at) gmail . com
 - p:lowercas user name
 - [public link](https://automate.browserstack.com/dashboard/v2/public-build/MTc1NERIaXdaU1NXRGdXM1UxV2RxMk9Sb0JVY3Q3b05aSFlCcUxkdzVPRjh4YzJ1ZHY4RHNmVTlMNEVHQ25zYS91dXYzb0lFTnpKNXFTdm9CUVRnb1E9PS0teC9ORStzaGs4NjgvaGFvb2xzM1Q5dz09--c810abd4014c96569ad2f08518978a9db47667fa)
 ### Assumptions/Limitations:
