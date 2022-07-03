@@ -1,7 +1,7 @@
 export class BasePage {
     search(search_string,leanguage){
         //Open the search popup
-        cy.get('.block-search__tile').wait(500).should('be.visible')
+        cy.get('.block-search__tile').wait(1500).should('be.visible')
             .trigger("mouseover")
             .trigger("click");
 

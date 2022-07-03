@@ -1,7 +1,7 @@
 {
     "auth": {
-        "username": "aleksanderlipski_0eV9Cy",
-        "access_key": "y1sxzK4zanJVZdV5nzbA"
+            "username": "janektestowy_wobD6Z",
+            "access_key": "fAx5GQZnDtHRNSsnwWM6"
     },
     "browsers": [
         {
@@ -83,7 +83,7 @@
         "cypress_version": "9",
         "build_name": "Build no.1",
         "exclude": [],
-        "parallels": "1",
+        "parallels": "10",
         "npm_dependencies": {},
         "package_config_options": {},
         "headless": true
