@@ -73,6 +73,30 @@ The execution of the test was planned on the docket and predefined image comming
 ```
 docker run -it -v $PWD:/e2e -w /e2e cypress/included:9.7.0
 ```
+Unfortunately with given device (M1chip), the unexpeted issue occurs
+```
+lipskia@Aleksanders-MacBook-Pro Exercise_2 % docker run --platform linux/amd64 -it -v $PWD:/e2e -w /e2e cypress/included:9.7.0
+qemu: uncaught target signal 5 (Trace/breakpoint trap) - core dumped
+qemu: uncaught target signal 5 (Trace/breakpoint trap) - core dumped
+qemu: uncaught target signal 11 (Segmentation fault) - core dumped
+The Test Runner unexpectedly exited via a exit event with signal SIGSEGV
+
+Please search Cypress documentation for possible solutions:
+
+https://on.cypress.io
+
+Check if there is a GitHub issue describing this crash:
+
+https://github.com/cypress-io/cypress/issues
+
+Consider opening a new issue.
+
+----------
+
+Platform: linux-x64 (Debian - 11.3)
+Cypress Version: 9.7.0
+lipskia@Aleksanders-MacBook-Pro Exercise_2 % 
+```
 ## Exercise 4
 ### Authorization
 - u:JanekzChmur (at) gmail.com
