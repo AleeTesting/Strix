@@ -69,7 +69,7 @@ The exercise was performed following the below flow:
 - The execution of the 2 out of 7 steps, is already consuming 30-40 seconds, which indicates that the full test script will take aroung 2-3 minutes. 
 ## Exercise 3
 ### Introduction
-[Run Cypress with a single Docker command](https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command/)
+The execution of the test was planned on the docket and predefined image comming from Cypress. Thanks to this image it is possible to [run Cypress with a single Docker command](https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command/)
 ```
 docker run -it -v $PWD:/e2e -w /e2e cypress/included:9.7.0
 ```
