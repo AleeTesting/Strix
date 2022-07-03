@@ -53,17 +53,23 @@ Every 5 minutes / per country region
 ### Introduction
 The exercise was performed following the below flow:
 1. Functional Analysis of the page using [mindmap](https://coggle.it/diagram/YrYu8LndxQl8MoIF/t/semilac-pl)
-2. Analysis of the User Flows and prioritisation - Priority Tab [https://docs.google.com/spreadsheets/d/1YTQLFPOZr83975LFVXIoEw5UtAZLwy5arq4D67wmeYM/edit?usp=sharing]
-3. Designing the scope of the Pages need for test automation - Page Objects [https://docs.google.com/spreadsheets/d/1YTQLFPOZr83975LFVXIoEw5UtAZLwy5arq4D67wmeYM/edit#gid=968477189]
+2. Analysis of the User Flows and prioritisation - [priority tab](https://docs.google.com/spreadsheets/d/1YTQLFPOZr83975LFVXIoEw5UtAZLwy5arq4D67wmeYM/edit?usp=sharing)
+3. Designing the scope of the Pages need for test automation - [page objects](https://docs.google.com/spreadsheets/d/1YTQLFPOZr83975LFVXIoEw5UtAZLwy5arq4D67wmeYM/edit#gid=968477189)
+4. Design of the Page Objects
+5. Design of the test script (spec)
 ### Assumptions/Limitations
-1. Functional Analysis of the [page](https://coggle.it/diagram/YrYu8LndxQl8MoIF/t/semilac-pl)
-2. Functional Flows of the page and prioritisation [https://docs.google.com/spreadsheets/d/1YTQLFPOZr83975LFVXIoEw5UtAZLwy5arq4D67wmeYM/edit#gid=0]
-3. 
+- The example tests is not completed, contains design for 2 out 7 steps
+- The test was designed using Cypress 9.2
+- The biggest not solved challanges are:
+  - Timinig issue when opening search field. Regardless fact that cypresss has it's own wiating mechanism, only explicit wait helped in typing in the search field locally. For the Browserstack this issue still persists
+  - Issues when adding product to basket. It seems there is unknow background activty that prevents from adding a product to basket using cypress. Ideally this should be crossed refferenced with not Webdriver tool to find out if this is a Cypress issue only
+- The automated test were designed to support different leanguages, however this shall be further analyzed as the web page for different leanguags,  contatins a slitghly different UI. To cover every scenario, dedicated logic needs to be implemented which makes the test automated scrtips unnecessarly  complex
+- The execution of the 2 out of 7 steps, is already consuming 30-40 seconds, which indicates that the full test script will take aroung 2-3 minutes. 
 ## Exercise 3
 ## Exercise 4
 ### Authorization
 - u:JanekzChmur (at) gmail.com
 - p:lowercas user name
 ### Assumptions/Limitations:
-- The execution on the BrowserStack shows that there is still a timing issue for the Chrome browsers
+- The execution on the BrowserStack shows that there is still a timing issue for the Chrome browsers when trying to open search field
 
