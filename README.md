@@ -65,7 +65,7 @@ The exercise was performed following the below flow:
 - The biggest not solved challanges are:f
   - Timinig issue when opening search field. Regardless fact that cypresss has it's own wiating mechanism, only explicit wait helped in typing in the search field locally. For the Browserstack this issue still persists
   - Issues when adding product to basket. It seems there is unknow background activty that prevents from adding a product to basket using cypress. Ideally this should be crossed refferenced with not Webdriver tool to find out if this is a Cypress issue only
-- The automated test were designed to support different leanguages, however this shall be further analyzed as the web page for different leanguags,  contatins a slitghly different UI. To cover every scenario, dedicated logic needs to be implemented which makes the test automated scrtips unnecessarly  complex
+- The automated test were designed to support different leanguages, however this shall be further analyzed. The web page for different leanguags,  contatins a slitghly different UI. To cover every scenario, dedicated logic needs to be implemented. This will make the test automated scrtips unnecesserly complex
 - The execution of the 2 out of 7 steps, is already consuming 30-40 seconds, which indicates that the full test script will take aroung 2-3 minutes. 
 ## Exercise 3
 ### Introduction
@@ -73,7 +73,13 @@ The execution of the test was planned on the docket and predefined image comming
 ```
 docker run -it -v $PWD:/e2e -w /e2e cypress/included:9.7.0
 ```
-Unfortunately with given device (M1chip), the unexpeted issue occurs
+or using the  docker config file
+
+```
+docker build -t cypress-test-image:1.0.0 -f dockerfile .
+```
+
+Unfortunately with given device (M1chip), the unexpected issue occurs:
 ```
 lipskia@Aleksanders-MacBook-Pro Exercise_2 % docker run --platform linux/amd64 -it -v $PWD:/e2e -w /e2e cypress/included:9.7.0
 qemu: uncaught target signal 5 (Trace/breakpoint trap) - core dumped
@@ -103,5 +109,5 @@ lipskia@Aleksanders-MacBook-Pro Exercise_2 %
 - p:lowercas user name
 - [public link](https://automate.browserstack.com/dashboard/v2/public-build/MTc1NERIaXdaU1NXRGdXM1UxV2RxMk9Sb0JVY3Q3b05aSFlCcUxkdzVPRjh4YzJ1ZHY4RHNmVTlMNEVHQ25zYS91dXYzb0lFTnpKNXFTdm9CUVRnb1E9PS0teC9ORStzaGs4NjgvaGFvb2xzM1Q5dz09--c810abd4014c96569ad2f08518978a9db47667fa)
 ### Assumptions/Limitations:
-- The execution on the BrowserStack shows that there is still a timing issue for the Chrome browsers when trying to open search field
+- The execution via BrowserStack shows that there is still a timing issue for the Chrome browsers when trying to open search field
 
