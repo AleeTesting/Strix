@@ -50,7 +50,12 @@ Every 5 minutes / per country region
 
 
 ## Exercise 2
+### Introduction
 1. Functional Analysis of the page [https://coggle.it/diagram/YrYu8LndxQl8MoIF/t/semilac-pl]
 2. Functional Flows of the page and prioritisation [https://docs.google.com/spreadsheets/d/1YTQLFPOZr83975LFVXIoEw5UtAZLwy5arq4D67wmeYM/edit#gid=0]
+### Assumptions/Limitations
+1. Functional Analysis of the page [https://coggle.it/diagram/YrYu8LndxQl8MoIF/t/semilac-pl]
+2. Functional Flows of the page and prioritisation [https://docs.google.com/spreadsheets/d/1YTQLFPOZr83975LFVXIoEw5UtAZLwy5arq4D67wmeYM/edit#gid=0]
+3. 
 ## Exercise 3
 ## Exercise 4
