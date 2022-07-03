@@ -9,6 +9,7 @@ This exerecise was cretaed with the help of **Postman** The collection and envir
 - API Test doesnt contain shopping as a looged in user
 - API Test is using a single product and one store details for a test data. Both were chosen to limit the likelihood of false positive, still it may cause some issues during execution (eg. no product in the warehouse, store closed)
 - API Test has some space for improvement in terms of time of execution (are all request neccessary?) and some assertions (regex in the body response). For this some pairing is adivesed before sending to the monitoring
+- For the API Test, the query_key has been parametrized and hardcoded.It supposed to be geneerated based on the given api specification 
 
 ### Scope of the API test
 - Home Page (castorama.pl)
