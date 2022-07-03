@@ -68,6 +68,11 @@ The exercise was performed following the below flow:
 - The automated test were designed to support different leanguages, however this shall be further analyzed as the web page for different leanguags,  contatins a slitghly different UI. To cover every scenario, dedicated logic needs to be implemented which makes the test automated scrtips unnecessarly  complex
 - The execution of the 2 out of 7 steps, is already consuming 30-40 seconds, which indicates that the full test script will take aroung 2-3 minutes. 
 ## Exercise 3
+### Introduction
+[Run Cypress with a single Docker command](https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command/)
+```
+docker run -it -v $PWD:/e2e -w /e2e cypress/included:9.7.0
+```
 ## Exercise 4
 ### Authorization
 - u:JanekzChmur (at) gmail.com
