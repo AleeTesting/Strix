@@ -25,6 +25,7 @@ describe('Order product as guest user (polish)',
 () => {
   before(function(){
     homePage.navigate(Cypress.env('leanguage'));
+    cy.wait(1000);
   })
 
 it('should be able to find a product', function(){
