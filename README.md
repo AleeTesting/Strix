@@ -60,13 +60,14 @@ The exercise was performed following the below flow:
 5. Design of the Page Objects  (Cypress/JS)
 6. Design of the Test Script (Cypress/JS)
 ### Assumptions/Limitations
-- The example tests is not completed, contains design for 2 out 7 steps
+- The example test is not completed, contains full design for 2 out 7 steps
 - The test was designed using Cypress 9.2
-- The biggest not solved challanges are:f
-  - Timinig issue when opening search field. Regardless fact that cypresss has it's own wiating mechanism, only explicit wait helped in typing in the search field locally. For the Browserstack this issue still persists
-  - Issues when adding product to basket. It seems there is unknow background activty that prevents from adding a product to basket using cypress. Ideally this should be crossed refferenced with not Webdriver tool to find out if this is a Cypress issue only
-- The automated test were designed to support different leanguages, however this shall be further analyzed. The web page for different leanguags,  contatins a slitghly different UI. To cover every scenario, dedicated logic needs to be implemented. This will make the test automated scrtips unnecesserly complex
-- The execution of the 2 out of 7 steps, is already consuming 30-40 seconds, which indicates that the full test script will take aroung 2-3 minutes. 
+- The biggest not solved challanges are:
+  - timinig issue when opening search field. Regardless fact that cypresss has it's own waiting mechanism, only explicit wait helps in typing in the search field locally. For the Browserstack this issue still persists.
+  - Issues when adding product to basket. It seems there is unknow background activty that prevents from adding a product to basket using Cypress, the button stuck on "Dodaje/Adding". This should be cross refferenced with other tool (eg.Webdriver)to find out if this is a Cypress issue only
+- The automated test were designed to support different leanguages, however this shall be further analyzed. The web page for different leanguags,  contatins a slitghly different UI. To cover every scenario, dedicated logic needs to be implemented. This will eventaully make the test automated scrtips unnecesserly complex
+- The execution of the 2 out of 7 steps, is already consuming 30-40 seconds, which indicates that the full test script will take aroung 2-3 minutes.
+- For the readeability aspect, the spec description in Cypress should be eneough. No gherkin strucutre is recommended, as the efort for additional layer of abstraction doesn't compensate the potential gain. Business rarely care about automated tests.
 ## Exercise 3
 ### Introduction
 The execution of the test was planned on the docker and predefined image comming from Cypress. Thanks to this image it is possible to [run Cypress with a single Docker command](https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command/)
