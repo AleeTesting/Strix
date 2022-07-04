@@ -68,6 +68,16 @@ The exercise was performed following the below flow:
 - The automated test were designed to support different leanguages, however this shall be further analyzed. The web page for different leanguags,  contatins a slitghly different UI. To cover every scenario, dedicated logic needs to be implemented. This will eventaully make the test automated scrtips unnecesserly complex
 - The execution of the 2 out of 7 steps, is already consuming 30-40 seconds, which indicates that the full test script will take aroung 2-3 minutes.
 - For the readeability aspect, the spec description in Cypress should be good eneough. No gherkin strucutre is recommended, as the efort for additional layer of abstraction doesn't compensate the potential gain and usually little interest in tests/automation from the Business side.
+### Scope of the example test
+- Order product as guest user (polish)
+  - should be able to find a product
+  - should be able to open a product
+  - should be able to add product to cart
+  - should be able to checkout cart
+  - should be able to order as a guest
+  - should be able to enter delivery address
+  - should be able to selct payment
+
 ## Exercise 3
 ### Introduction
 The execution of the test was planned on the docker and predefined image comming from Cypress. Thanks to this image it is possible to [run Cypress with a single Docker command](https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command/)
