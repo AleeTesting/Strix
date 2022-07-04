@@ -67,7 +67,7 @@ The exercise was performed following the below flow:
   - Issues when adding product to basket. It seems there is unknow background activty that prevents from adding a product to basket using Cypress, the button stuck on "Dodaje/Adding". This should be cross refferenced with other tool (eg.Webdriver)to find out if this is a Cypress issue only
 - The automated test were designed to support different leanguages, however this shall be further analyzed. The web page for different leanguags,  contatins a slitghly different UI. To cover every scenario, dedicated logic needs to be implemented. This will eventaully make the test automated scrtips unnecesserly complex
 - The execution of the 2 out of 7 steps, is already consuming 30-40 seconds, which indicates that the full test script will take aroung 2-3 minutes.
-- For the readeability aspect, the spec description in Cypress should be eneough. No gherkin strucutre is recommended, as the efort for additional layer of abstraction doesn't compensate the potential gain. Business rarely care about automated tests.
+- For the readeability aspect, the spec description in Cypress should be good eneough. No gherkin strucutre is recommended, as the efort for additional layer of abstraction doesn't compensate the potential gain and usually little interest in tests/automation from the Business side.
 ## Exercise 3
 ### Introduction
 The execution of the test was planned on the docker and predefined image comming from Cypress. Thanks to this image it is possible to [run Cypress with a single Docker command](https://www.cypress.io/blog/2019/05/02/run-cypress-with-a-single-docker-command/)
@@ -80,7 +80,7 @@ or using the docker config file
 docker build -t cypress-test-image:1.0.0 -f dockerfile .
 ```
 
-Unfortunately with given device (M1chip), the unexpected issue occurs:
+Unfortunately with my device (M1chip), I encoutnbered an issue for (both approaches), that I couldn't quickly resolve:
 ```
 lipskia@Aleksanders-MacBook-Pro Exercise_2 % docker run --platform linux/amd64 -it -v $PWD:/e2e -w /e2e cypress/included:9.7.0
 qemu: uncaught target signal 5 (Trace/breakpoint trap) - core dumped
