@@ -1,10 +1,9 @@
 export class BasePage {
     search(search_string,leanguage){
         //Open the search popup
-        cy.get('.block-search__tile').wait(2000).should('be.visible')
+        cy.get('.block-search__tile').should('be.visible')
             .trigger("mouseover")
             .trigger("click");
-
         if (leanguage === "de"){
         //Logic for a "de" leanguage, as the search field differs
         cy.get('#search')
