@@ -8,12 +8,6 @@ import {checkoutLoginPage} from '../page-objects/checkout-login-page.js';
 import {shippingPage} from '../page-objects/shipping-page.js';
 import {paymentPage} from '../page-objects/payment-page.js';
 
-Cypress.on('uncaught:exception', (err, runnable) => {
-  console.log(`CYPRESS uncaught exception FLOW:::: ${err}`);
-  debugger;
-  return false;
-});
-
 describe('Order product as guest user (polish)',
 {
   env: {
