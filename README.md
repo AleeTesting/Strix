@@ -63,7 +63,8 @@ The exercise was performed following the below flow:
 - The example test is not completed, contains full design for 2 out 7 steps
 - The test was designed using Cypress 9.2
 - The biggest not solved challanges are:
-  - timinig issue when opening search field. Regardless fact that cypresss has it's own waiting mechanism, only explicit wait helps in typing in the search field locally. For the Browserstack this issue still persists.
+  - timinig issue when opening search field. Regardless fact that cypresss has it's own waiting mechanism, only explicit wait helps in typing in the search field locally. For the Browserstack this issue still persists. 
+**[Update]** This is now fixed, details in the [PR](https://github.com/AleeTesting/Strix/pull/1)
   - Issues when adding product to basket. It seems there is unknow background activty that prevents from adding a product to basket using Cypress, the button stuck on "Dodaje/Adding". This should be cross refferenced with other tool (eg.Webdriver)to find out if this is a Cypress issue only
 - The automated test were designed to support different leanguages, however this shall be further analyzed. The web page for different leanguags,  contatins a slitghly different UI. To cover every scenario, dedicated logic needs to be implemented. This will eventaully make the test automated scrtips unnecesserly complex
 - The execution of the 2 out of 7 steps, is already consuming 30-40 seconds, which indicates that the full test script will take aroung 2-3 minutes.
