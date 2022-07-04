@@ -40,7 +40,7 @@ This exerecise was cretaed with the help of **Postman** The collection and envir
 The average execution time for the above scope 11-12s 
 
 ### Running via CI
-Follow the guide https://learning.postman.com/docs/running-collections/using-newman-cli/continuous-integration/
+Follow the [guide](https://learning.postman.com/docs/running-collections/using-newman-cli/continuous-integration/)
 You should end up in a similar commands as below:
 ```
 newman run https://api.getpostman.com/collections/{{collection_uid}}?apikey={{postman-api-key-here}}
