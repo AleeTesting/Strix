@@ -8,12 +8,6 @@ import {checkoutLoginPage} from '../page-objects/checkout-login-page.js';
 import {shippingPage} from '../page-objects/shipping-page.js';
 import {paymentPage} from '../page-objects/payment-page.js';
 
-Cypress.on('uncaught:exception', (err, runnable) => {
-  console.log(`CYPRESS uncaught exception FLOW:::: ${err}`);
-  debugger;
-  return false;
-});
-
 describe('Order product as guest user (polish)',
 {
   env: {
@@ -25,9 +19,7 @@ describe('Order product as guest user (polish)',
 () => {
   before(function(){
     homePage.navigate(Cypress.env('leanguage'));
-    cy.wait(1000);
   })
-
 it('should be able to find a product', function(){
     //Search for the product by using a unique color number.
     //Note that some products may trigger a different flow eg. additional modal window
@@ -50,7 +42,7 @@ it('should be able to find a product', function(){
     cartPage.checkoutCart();
     checkoutLoginPage.orderAsGuest();
   })
-  it('should be able to enter address', function(){
+  it('should be able to enter delivery address', function(){
     shippingPage.enterShippingAddress();
     shippingPage.selectDelivery(Cypress.env('delivery')); 
     shippingPage.goToPayment();

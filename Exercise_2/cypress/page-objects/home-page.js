@@ -1,13 +1,11 @@
 export class HomePage{
     navigate(country){
-        //switch based on the country provided, default is Poland
-        cy.clearCookies();
         if (country === 'en') {
-            cy.visit('/en');    
+            cy.visit_start('/en',20000);    
         } else if (country === 'de') {
-            cy.visit('https://semilac.de/de/'); 
+            cy.visit_start('https://semilac.de/de/',20000); 
         } else {
-            cy.visit('');
+            cy.visit_start('',20000);
         }               
     }
 };
